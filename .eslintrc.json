@@ -48,7 +48,9 @@
         "react/jsx-indent-props": "off",
         "comma-dangle": "off",
         "react/jsx-one-expression-per-line": "off",
-        "object-curly-newline": "off"
+        "object-curly-newline": "off",
+        "arrow-body-style": "off",
+        "react/function-component-definition": "off"
     },
     "settings": {
         "import/resolver": {
