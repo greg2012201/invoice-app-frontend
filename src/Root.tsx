@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
+import DashboardTemplate from 'templates/DashboardTemplate';
 
 const Root: FC = () => {
-    return <div>root</div>;
+    return <DashboardTemplate />;
 };
 
 export default Root;
