@@ -18,7 +18,10 @@
         "baseUrl": "src",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "paths": {
+            "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+        }
     },
     "include": ["src"]
 }
