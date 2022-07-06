@@ -9,12 +9,18 @@ declare module '@mui/material/styles' {
     interface TypographyOptions {
         typography?: {
             fontSize?: string;
+            subtitle1?: {
+                fontSize?: string;
+            };
         };
     }
 }
 
 export const theme = createTheme({
     typography: {
-        fontSize: 12,
+        fontSize: 10,
+        subtitle1: {
+            fontSize: 38,
+        },
     },
 });
