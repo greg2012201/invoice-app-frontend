@@ -15,6 +15,6 @@ declare module '@mui/material/styles' {
 
 export const theme = createTheme({
     typography: {
-        fontSize: 10,
+        fontSize: 12,
     },
 });
