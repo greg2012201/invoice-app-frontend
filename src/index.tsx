@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import AppProviders from 'providers/AppProviders';
+import CssBaseline from '@mui/material/CssBaseline';
 import Root from './Root';
 
 const root = ReactDOM.createRoot(
@@ -9,7 +10,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <AppProviders>
-            <Root />
+            <CssBaseline>
+                <Root />
+            </CssBaseline>
         </AppProviders>
     </React.StrictMode>
 );
