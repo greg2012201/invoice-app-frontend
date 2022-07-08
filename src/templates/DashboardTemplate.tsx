@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import { Typography, Container } from '@mui/material';
+import TopBar from 'components/TopBar';
 
 const DashboardTemplate: FC = () => {
     return (
-        <Container>
-            <Typography variant="h1" component="h1">
-                Invoice App
-            </Typography>
-        </Container>
+        <>
+            <TopBar />
+            <Container>content</Container>
+        </>
     );
 };
 
