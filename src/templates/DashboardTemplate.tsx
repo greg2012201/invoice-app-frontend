@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
 import TopBar from 'components/TopBar';
-import { DRAWER_WIDTH } from 'consts/navigation';
+import { DRAWER_WIDTH } from 'constants/navigation';
 
 const DashboardTemplate: FC = () => {
     return (

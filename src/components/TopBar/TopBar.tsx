@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Typography, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DRAWER_WIDTH } from 'consts/navigation';
+import { DRAWER_WIDTH } from 'constants/navigation';
 
 interface Props {
     handleDrawerToggle: () => void;

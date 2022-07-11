@@ -9,7 +9,7 @@ import {
     ListItem,
     ListItemButton,
 } from '@mui/material';
-import { DRAWER_WIDTH, SECTIONS } from 'consts/navigation';
+import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
 
 const LeftBar: FC = () => {
     const container = window.document.body;
