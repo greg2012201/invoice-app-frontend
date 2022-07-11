@@ -1,12 +1,22 @@
 import React, { FC } from 'react';
-import { Container } from '@mui/material';
+import { Box } from '@mui/material';
 import TopBar from 'components/TopBar';
+import { DRAWER_WIDTH } from 'consts/navigation';
 
 const DashboardTemplate: FC = () => {
     return (
         <>
-            <TopBar />
-            <Container>content</Container>
+            <TopBar handleDrawerToggle={() => true} />
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    p: 3,
+                    width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
+                }}
+            >
+                content
+            </Box>
         </>
     );
 };
