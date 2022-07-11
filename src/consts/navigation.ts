@@ -4,3 +4,5 @@ export const SECTIONS: Array<string> = [
     'Issued Invoices List',
     'Settings',
 ];
+
+export const DRAWER_WIDTH = 240;
