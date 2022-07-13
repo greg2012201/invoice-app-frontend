@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
-import TopBar from 'components/TopBar';
 import { DRAWER_WIDTH } from 'constants/navigation';
+import Navigation from 'templates/Navigation';
 
 const DashboardTemplate: FC = () => {
     return (
-        <>
-            <TopBar handleDrawerToggle={() => true} />
+        <Box sx={{ display: 'flex' }}>
+            <Navigation />
             <Box
                 component="main"
                 sx={{
@@ -15,9 +15,9 @@ const DashboardTemplate: FC = () => {
                     width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
                 }}
             >
-                content
+                <div>content</div>
             </Box>
-        </>
+        </Box>
     );
 };
 
