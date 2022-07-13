@@ -11,7 +11,10 @@ import {
 } from '@mui/material';
 import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
 
-const LeftBar: FC = () => {
+interface Props {
+    mobileOpen: boolean;
+}
+const LeftBar: FC<Props> = ({ mobileOpen }) => {
     const container = window.document.body;
     const drawer = (
         <div>
@@ -37,7 +40,7 @@ const LeftBar: FC = () => {
             <Drawer
                 container={container}
                 variant="temporary"
-                open
+                open={mobileOpen}
                 ModalProps={{
                     keepMounted: true,
                 }}
