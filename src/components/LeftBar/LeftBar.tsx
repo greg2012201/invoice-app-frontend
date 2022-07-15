@@ -13,8 +13,9 @@ import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
 
 interface Props {
     mobileOpen: boolean;
+    handleDrawerToggle: () => void;
 }
-const LeftBar: FC<Props> = ({ mobileOpen }) => {
+const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
     const container = window.document.body;
     const drawer = (
         <div>
@@ -40,6 +41,7 @@ const LeftBar: FC<Props> = ({ mobileOpen }) => {
             <Drawer
                 container={container}
                 variant="temporary"
+                onClose={handleDrawerToggle}
                 open={mobileOpen}
                 ModalProps={{
                     keepMounted: true,

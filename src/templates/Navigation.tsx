@@ -10,7 +10,10 @@ const Navigation: FC = () => {
     return (
         <>
             <TopBar handleDrawerToggle={handleDrawerToggle} />
-            <LeftBar mobileOpen={mobileOpen} />
+            <LeftBar
+                handleDrawerToggle={handleDrawerToggle}
+                mobileOpen={mobileOpen}
+            />
         </>
     );
 };
