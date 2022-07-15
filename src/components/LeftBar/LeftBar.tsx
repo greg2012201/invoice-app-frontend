@@ -10,6 +10,7 @@ import {
     ListItemButton,
 } from '@mui/material';
 import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
+import { Link } from 'react-router-dom';
 
 interface Props {
     mobileOpen: boolean;
@@ -24,9 +25,9 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
             </Toolbar>
             <Divider />
             <List>
-                {SECTIONS.map((section: string) => (
-                    <ListItem key={section}>
-                        <ListItemButton>{section}</ListItemButton>
+                {SECTIONS.map(({ name, path }) => (
+                    <ListItem component={Link} to={path} key={name}>
+                        <ListItemButton>{name}</ListItemButton>
                     </ListItem>
                 ))}
             </List>
