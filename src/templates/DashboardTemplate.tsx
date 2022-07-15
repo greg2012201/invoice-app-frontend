@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 import { DRAWER_WIDTH } from 'constants/navigation';
 import Navigation from 'templates/Navigation';
 
@@ -15,6 +15,7 @@ const DashboardTemplate: FC = () => {
                     width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
                 }}
             >
+                <Toolbar />
                 <div>content</div>
             </Box>
         </Box>
