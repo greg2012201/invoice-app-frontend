@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from 'themes/mainTheme';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 interface Props {
     children: JSX.Element;
