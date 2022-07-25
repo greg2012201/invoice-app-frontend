@@ -18,9 +18,28 @@ import {
 } from 'react-router-dom';
 import { SECTIONS } from 'constants/navigation';
 
+interface Match {
+    pattern?: {
+        path: string;
+    };
+}
 const NavigationTabs: FC = () => {
+    const { pathname } = useLocation();
+    const getRouteMatch = (patterns: readonly string[]): Match | null => {
+        let output = null;
+        patterns.forEach((pattern: string) => {
+            const possibleMatch = matchPath(pattern, pathname);
+            if (possibleMatch !== null) {
+                output = possibleMatch;
+            }
+        });
+
+        return output;
+    };
+    const routeMatch = getRouteMatch(SECTIONS.map(({ path }) => path));
+    const currentTab = routeMatch?.pattern?.path;
     return (
-        <Tabs orientation="vertical">
+        <Tabs value={currentTab} orientation="vertical">
             {SECTIONS.map(({ name, path }) => (
                 <Tab
                     label={name}
