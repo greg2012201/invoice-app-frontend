@@ -8,14 +8,7 @@ import {
     Tabs,
     Tab,
 } from '@mui/material';
-import {
-    MemoryRouter,
-    Route,
-    Routes,
-    Link,
-    matchPath,
-    useLocation,
-} from 'react-router-dom';
+import { Link, matchPath, useLocation } from 'react-router-dom';
 import { SECTIONS } from 'constants/navigation';
 
 interface Match {
@@ -34,7 +27,7 @@ const NavigationTabs: FC = () => {
             }
         });
 
-        return output;
+        return null;
     };
     const routeMatch = getRouteMatch(SECTIONS.map(({ path }) => path));
     const currentTab = routeMatch?.pattern?.path;
