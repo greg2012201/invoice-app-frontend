@@ -1,13 +1,5 @@
 import React, { FC } from 'react';
-import {
-    Toolbar,
-    Divider,
-    Typography,
-    Drawer,
-    Box,
-    Tabs,
-    Tab,
-} from '@mui/material';
+import { Tabs, Tab } from '@mui/material';
 import { Link, matchPath, useLocation } from 'react-router-dom';
 import { SECTIONS } from 'constants/navigation';
 
