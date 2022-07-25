@@ -5,17 +5,24 @@ import {
     Typography,
     Drawer,
     Box,
-    List,
-    ListItem,
-    ListItemButton,
+    Tabs,
+    Tab,
 } from '@mui/material';
+import {
+    MemoryRouter,
+    Route,
+    Routes,
+    Link,
+    matchPath,
+    useLocation,
+} from 'react-router-dom';
 import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
-import { Link } from 'react-router-dom';
 
 interface Props {
     mobileOpen: boolean;
     handleDrawerToggle: () => void;
 }
+
 const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
     const container = window.document.body;
     const drawer = (
@@ -24,13 +31,18 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
                 <Typography>Invoice App</Typography>
             </Toolbar>
             <Divider />
-            <List>
+            <Tabs orientation="vertical" centered={false}>
                 {SECTIONS.map(({ name, path }) => (
-                    <ListItem component={Link} to={path} key={name}>
-                        <ListItemButton>{name}</ListItemButton>
-                    </ListItem>
+                    <Tab
+                        label={name}
+                        key={name}
+                        value={path}
+                        to={path}
+                        component={Link}
+                        sx={{ alignItems: 'start' }}
+                    />
                 ))}
-            </List>
+            </Tabs>
         </div>
     );
     return (
