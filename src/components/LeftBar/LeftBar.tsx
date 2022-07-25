@@ -1,22 +1,7 @@
 import React, { FC } from 'react';
-import {
-    Toolbar,
-    Divider,
-    Typography,
-    Drawer,
-    Box,
-    Tabs,
-    Tab,
-} from '@mui/material';
-import {
-    MemoryRouter,
-    Route,
-    Routes,
-    Link,
-    matchPath,
-    useLocation,
-} from 'react-router-dom';
-import { DRAWER_WIDTH, SECTIONS } from 'constants/navigation';
+import { Toolbar, Divider, Typography, Drawer, Box } from '@mui/material';
+import { DRAWER_WIDTH } from 'constants/navigation';
+import NavigationTabs from './NavigationTabs';
 
 interface Props {
     mobileOpen: boolean;
@@ -31,18 +16,7 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
                 <Typography>Invoice App</Typography>
             </Toolbar>
             <Divider />
-            <Tabs orientation="vertical" centered={false}>
-                {SECTIONS.map(({ name, path }) => (
-                    <Tab
-                        label={name}
-                        key={name}
-                        value={path}
-                        to={path}
-                        component={Link}
-                        sx={{ alignItems: 'start' }}
-                    />
-                ))}
-            </Tabs>
+            <NavigationTabs />
         </div>
     );
     return (
