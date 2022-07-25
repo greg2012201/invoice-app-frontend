@@ -19,7 +19,7 @@ const NavigationTabs: FC = () => {
             }
         });
 
-        return null;
+        return output;
     };
     const routeMatch = getRouteMatch(SECTIONS.map(({ path }) => path));
     const currentTab = routeMatch?.pattern?.path;
