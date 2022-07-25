@@ -20,7 +20,7 @@ import { SECTIONS } from 'constants/navigation';
 
 const NavigationTabs: FC = () => {
     return (
-        <Tabs orientation="vertical" centered={false}>
+        <Tabs orientation="vertical">
             {SECTIONS.map(({ name, path }) => (
                 <Tab
                     label={name}
