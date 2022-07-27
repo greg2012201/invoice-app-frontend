@@ -11,15 +11,15 @@ interface Match {
 const NavigationTabs: FC = () => {
     const { pathname } = useLocation();
     const getRouteMatch = (patterns: readonly string[]): Match | null => {
-        let output = null;
-        patterns.forEach((pattern: string) => {
+        /* eslint-disable-next-line */
+        for (const pattern of patterns) {
             const possibleMatch = matchPath(pattern, pathname);
             if (possibleMatch !== null) {
-                output = possibleMatch;
+                return possibleMatch;
             }
-        });
+        }
 
-        return output;
+        return null;
     };
     const routeMatch = getRouteMatch(SECTIONS.map(({ path }) => path));
     const currentTab = routeMatch?.pattern?.path;
