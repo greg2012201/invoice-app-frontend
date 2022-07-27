@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Box, Toolbar } from '@mui/material';
 import Navigation from 'templates/Navigation';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import IssueInvoice from 'Pages/IssueInvoice';
 import { Wrapper } from './DashboardTemplate.styles';
 
 const DashboardTemplate: FC = () => {
@@ -15,10 +16,7 @@ const DashboardTemplate: FC = () => {
                         path="/"
                         element={<Navigate replace to="/issue-invoice" />}
                     />
-                    <Route
-                        path="/issue-invoice"
-                        element={<div>Issue invoice page</div>}
-                    />
+                    <Route path="/issue-invoice" element={<IssueInvoice />} />
                 </Routes>
             </Box>
         </Box>
