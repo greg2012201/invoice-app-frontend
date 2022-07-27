@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Typography, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { DRAWER_WIDTH } from 'constants/navigation';
+import { Wrapper, Icon } from './TobBar.styles';
 
 interface Props {
     handleDrawerToggle: () => void;
@@ -9,19 +9,13 @@ interface Props {
 
 const TopBar: FC<Props> = ({ handleDrawerToggle }) => {
     return (
-        <AppBar
-            position="fixed"
-            sx={{
-                width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
-                ml: { sm: `${DRAWER_WIDTH}px` },
-            }}
-        >
+        <AppBar position="fixed" sx={Wrapper}>
             <Toolbar variant="dense">
                 <IconButton
                     edge="start"
                     color="inherit"
                     aria-label="menu"
-                    sx={{ mr: 2, display: { sm: 'none' } }}
+                    sx={Icon}
                     onClick={handleDrawerToggle}
                 >
                     <MenuIcon />
