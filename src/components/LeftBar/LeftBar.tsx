@@ -16,7 +16,7 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
                 <Typography>Invoice App</Typography>
             </Toolbar>
             <Divider />
-            <NavigationTabs />
+            <NavigationTabs handleDrawerToggle={handleDrawerToggle} />
         </div>
     );
     return (

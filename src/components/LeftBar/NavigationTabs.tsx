@@ -9,7 +9,10 @@ interface Match {
         path: string;
     };
 }
-const NavigationTabs: FC = () => {
+interface Props {
+    handleDrawerToggle: () => void;
+}
+const NavigationTabs: FC<Props> = ({ handleDrawerToggle }) => {
     const { pathname } = useLocation();
     const getRouteMatch = (patterns: readonly string[]): Match | null => {
         /* eslint-disable-next-line */
@@ -34,6 +37,7 @@ const NavigationTabs: FC = () => {
                     to={path}
                     component={Link}
                     sx={Item}
+                    onClick={handleDrawerToggle}
                 />
             ))}
         </Tabs>
