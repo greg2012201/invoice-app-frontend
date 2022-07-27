@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Typography } from '@mui/material';
+import { Typography, Divider } from '@mui/material';
+import IssueInvoiceForm from 'components/IssueInvoiceForm';
 
 const IssueInvoice: FC = () => {
     return (
@@ -8,6 +9,8 @@ const IssueInvoice: FC = () => {
             <Typography variant="subtitle2">
                 Provide information to issue new invoice
             </Typography>
+            <Divider />
+            <IssueInvoiceForm />
         </div>
     );
 };
