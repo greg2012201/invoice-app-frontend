@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Toolbar, Divider, Typography, Drawer, Box } from '@mui/material';
-import { DRAWER_WIDTH } from 'constants/navigation';
+import { Wrapper, NavBar } from './LeftBar.styles';
 import NavigationTabs from './NavigationTabs';
 
 interface Props {
@@ -20,11 +20,7 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
         </div>
     );
     return (
-        <Box
-            component="nav"
-            sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
-            aria-label="sections"
-        >
+        <Box component="nav" sx={Wrapper} aria-label="sections">
             <Drawer
                 container={container}
                 variant="temporary"
@@ -36,17 +32,7 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
             >
                 {drawer}
             </Drawer>
-            <Drawer
-                variant="permanent"
-                sx={{
-                    display: { xs: 'none', sm: 'block' },
-                    '& .MuiDrawer-paper': {
-                        boxSizing: 'border-box',
-                        width: DRAWER_WIDTH,
-                    },
-                }}
-                open
-            >
+            <Drawer variant="permanent" sx={NavBar} open>
                 {drawer}
             </Drawer>
         </Box>
