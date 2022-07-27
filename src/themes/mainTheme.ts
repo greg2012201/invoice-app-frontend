@@ -12,6 +12,9 @@ declare module '@mui/material/styles' {
             subtitle1?: {
                 fontSize?: string;
             };
+            subtitle2?: {
+                fontSize?: string;
+            };
         };
     }
 }
@@ -21,6 +24,9 @@ export const theme = createTheme({
         fontSize: 10,
         subtitle1: {
             fontSize: 38,
+        },
+        subtitle2: {
+            fontSize: 16,
         },
     },
 });
