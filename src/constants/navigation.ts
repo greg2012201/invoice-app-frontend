@@ -1,9 +1,9 @@
-interface Sections {
+interface Section {
     name: string;
     path: string;
 }
 
-export const SECTIONS: Array<Sections> = [
+export const SECTIONS: Array<Section> = [
     { name: 'Issue Invoice', path: '/issue-invoice' },
     { name: 'Incoming Invoice', path: '/incoming-invoice' },
     { name: 'Issued Invoices List', path: '/issue-invoice-list' },
