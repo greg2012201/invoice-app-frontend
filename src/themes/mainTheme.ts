@@ -24,9 +24,11 @@ export const theme = createTheme({
         fontSize: 10,
         subtitle1: {
             fontSize: 38,
+            fontStyle: 'italic',
         },
         subtitle2: {
             fontSize: 16,
+            fontStyle: 'italic',
         },
     },
 });
