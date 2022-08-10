@@ -21,7 +21,6 @@ declare module '@mui/material/styles' {
 
 export const theme = createTheme({
     typography: {
-        fontSize: 10,
         subtitle1: {
             fontSize: 38,
             fontStyle: 'italic',
