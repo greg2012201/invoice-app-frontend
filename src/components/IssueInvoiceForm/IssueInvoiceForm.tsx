@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import { InvoiceNumber, Form } from './IssueInvoiceForm.styles';
+import Service from './sections/Service';
 
 const IssueInvoiceForm: FC = () => {
     return (
@@ -8,6 +9,7 @@ const IssueInvoiceForm: FC = () => {
             <Typography sx={InvoiceNumber}>
                 Invoice Number: FV/01/01/2022
             </Typography>
+            <Service />
         </Box>
     );
 };
