@@ -30,7 +30,7 @@ const Service: FC = () => {
                         variant="outlined"
                     />
                 </Grid>
-                <Grid item xs={8} md={4} lg={2.5}>
+                <Grid item xs={8} md={5} lg={2.5}>
                     <TextField
                         style={TextFieldStyle}
                         fullWidth
@@ -41,7 +41,7 @@ const Service: FC = () => {
                         variant="outlined"
                     />
                 </Grid>
-                <Grid item xs={8} md={4} lg={2.5}>
+                <Grid item xs={8} md={5} lg={2.5}>
                     <TextField
                         style={TextFieldStyle}
                         fullWidth
