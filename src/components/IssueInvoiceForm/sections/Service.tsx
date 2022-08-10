@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
 import { Box, TextField, Grid, Input } from '@mui/material';
-import { TextFieldStyle } from './Service.styles';
+import { TextFieldStyle, Wrapper } from './Service.styles';
 
 const Service: FC = () => {
     return (
-        <Box
-            component="form"
-            sx={{ flexGrow: 1, flexWrap: 'wrap', maxWidth: '900px' }}
-        >
+        <Box component="form" sx={Wrapper}>
             <Grid container spacing={2}>
                 <Grid item xs={8} md={8} lg={5}>
                     <TextField
