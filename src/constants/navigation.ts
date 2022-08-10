@@ -10,4 +10,4 @@ export const SECTIONS: Array<Section> = [
     { name: 'Settings', path: '/settings' },
 ];
 
-export const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 200;
