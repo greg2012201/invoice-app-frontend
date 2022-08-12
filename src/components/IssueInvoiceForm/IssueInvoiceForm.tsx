@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
-import { Box, Typography } from '@mui/material';
-import { InvoiceNumber, Form } from './IssueInvoiceForm.styles';
+import { Box, Typography, Button, Toolbar } from '@mui/material';
+import { InvoiceNumber, Form, ToolbarStyles } from './IssueInvoiceForm.styles';
 import Service from './sections/Service';
+import Contractors from './sections/Contractors';
 
 const IssueInvoiceForm: FC = () => {
     return (
@@ -9,7 +10,13 @@ const IssueInvoiceForm: FC = () => {
             <Typography sx={InvoiceNumber}>
                 Invoice Number: FV/01/01/2022
             </Typography>
+            <Contractors />
             <Service />
+            <Toolbar disableGutters sx={ToolbarStyles}>
+                <Button type="submit" variant="contained" size="large">
+                    Submit
+                </Button>
+            </Toolbar>
         </Box>
     );
 };
