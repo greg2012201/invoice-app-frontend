@@ -17,20 +17,10 @@ import {
 interface Props extends Contractor {
     contractorType: string;
 }
-type AddressItemLabel = {
-    label: string;
-    value: string;
-};
-const addressItemLabels: AddressItemLabel[] = [
-    { label: 'City', value: 'city' },
-    { label: 'Country', value: 'country' },
-    { label: 'Street', value: 'street' },
-    { label: 'Postal Code', value: 'postalCode' },
-    { label: 'Number', value: 'number' },
-];
+
 const ContractorCard: FC<Props> = ({ contractorType, name, address }) => {
     return (
-        <Card variant="outlined" sx={{ maxWidth: 360 }}>
+        <Card variant="outlined" sx={{ width: 350 }}>
             <CardContent>
                 <Typography color="text.secondary" sx={ContractorTypeParagraph}>
                     {contractorType}
@@ -39,23 +29,14 @@ const ContractorCard: FC<Props> = ({ contractorType, name, address }) => {
                     {name}
                 </Typography>
                 <List>
-                    {Object.entries(address).map(
-                        ([key, value]: [key: string, value: string]) => {
-                            const foundLabel = addressItemLabels.find(
-                                (item: AddressItemLabel) => {
-                                    return key === item.value;
-                                }
-                            )?.label;
-                            return (
-                                <ListItem sx={ListItemStyles}>
-                                    <Typography color="text.secondary">
-                                        {foundLabel}:
-                                    </Typography>
-                                    <Typography>{value}</Typography>
-                                </ListItem>
-                            );
-                        }
-                    )}
+                    <ListItem sx={ListItemStyles}>
+                        <Typography color="text.secondary">Address:</Typography>
+                        <Typography>
+                            {address.street} {address.number}, <br />
+                            {address.postalCode} {address.city},{' '}
+                            {address.country}
+                        </Typography>
+                    </ListItem>
                 </List>
             </CardContent>
             <CardActions>
