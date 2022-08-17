@@ -1,1 +1,6 @@
-export const Wrapper = { padding: 1 };
+export const Wrapper = {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    padding: 1,
+};
