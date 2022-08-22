@@ -12,6 +12,7 @@ import { Contractor } from 'types/contractors';
 import {
     ContractorTypeParagraph,
     ListItemStyles,
+    CardWrapperStyles,
 } from './ContractorCard.styles';
 
 interface Props extends Contractor {
@@ -20,7 +21,7 @@ interface Props extends Contractor {
 
 const ContractorCard: FC<Props> = ({ contractorType, name, address }) => {
     return (
-        <Card variant="outlined" sx={{ width: 350 }}>
+        <Card variant="outlined" sx={CardWrapperStyles}>
             <CardContent>
                 <Typography color="text.secondary" sx={ContractorTypeParagraph}>
                     {contractorType}
