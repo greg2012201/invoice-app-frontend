@@ -3,4 +3,5 @@ export const Wrapper = {
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     padding: 1,
+    gap: '10px',
 };
