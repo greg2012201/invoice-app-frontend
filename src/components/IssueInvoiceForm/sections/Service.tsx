@@ -1,7 +1,12 @@
 import React, { FC } from 'react';
-import { Box, TextField, Grid } from '@mui/material';
+import { Box, TextField, Grid, BaseTextFieldProps } from '@mui/material';
 import { TextFieldStyle, Wrapper } from './Service.styles';
 
+const SharedTextInputProps: BaseTextFieldProps = {
+    size: 'small',
+    variant: 'outlined',
+    fullWidth: true,
+};
 const Service: FC = () => {
     return (
         <Box component="form" sx={Wrapper}>
@@ -9,77 +14,71 @@ const Service: FC = () => {
                 <Grid item xs={8} md={8} lg={3.5}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         id="service-name"
                         name="service-name"
                         label="Service Name"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={2} lg={1.2}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="quantity"
                         name="quantity"
                         label="Quantity"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.5}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="price-net"
                         name="price-net"
                         label="Price net"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.5}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="value-net"
                         name="value-net"
                         label="Value net"
                         variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.2}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="vat-rate"
                         name="vat-rate"
                         label="VAT rate"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.5}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="sum-vat"
                         name="sum-vat"
                         label="Sum VAT"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.5}>
                     <TextField
                         style={TextFieldStyle}
-                        fullWidth
                         type="number"
                         id="gross-value"
                         name="gross-value"
                         label="Gross value"
-                        variant="outlined"
+                        {...SharedTextInputProps}
                     />
                 </Grid>
                 <Grid item xs={8} md={8} lg={3.5}>
@@ -91,6 +90,7 @@ const Service: FC = () => {
                         multiline
                         maxRows={4}
                         minRows={4}
+                        {...SharedTextInputProps}
                     />
                 </Grid>
             </Grid>
