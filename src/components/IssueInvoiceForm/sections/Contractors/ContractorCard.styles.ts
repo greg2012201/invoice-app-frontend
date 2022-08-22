@@ -4,6 +4,8 @@ export const CardWrapperStyles = {
 };
 export const ContractorTypeParagraph = { textTransform: 'capitalize' };
 export const ListItemStyles = {
-    gap: '10px',
+    display: 'grid',
+    gridTemplateColumns: '25% 60%',
     alignItems: 'flex-start',
+    gap: '10px',
 };
