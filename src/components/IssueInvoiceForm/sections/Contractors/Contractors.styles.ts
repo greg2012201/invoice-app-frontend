@@ -4,4 +4,5 @@ export const Wrapper = {
     flexWrap: 'wrap',
     padding: 1,
     gap: '10px',
+    maxWidth: '1100px',
 };
