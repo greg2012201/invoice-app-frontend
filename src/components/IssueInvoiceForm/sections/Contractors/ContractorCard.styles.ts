@@ -1,5 +1,6 @@
 export const CardWrapperStyles = {
     width: '100%',
+    height: 'fit-content',
     '@media (min-width:440px)': { width: 350 },
 };
 export const ContractorTypeParagraph = { textTransform: 'capitalize' };
