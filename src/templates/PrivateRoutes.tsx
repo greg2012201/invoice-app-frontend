@@ -5,7 +5,7 @@ interface Props {
     children: JSX.Element;
 }
 
-const user = { id: '123' };
+const user = { id: null };
 
 const PrivateRoutes: FC<Props> = ({ children }) => {
     const isUser = user?.id;
