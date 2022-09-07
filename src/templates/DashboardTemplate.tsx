@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Toolbar } from '@mui/material';
 import Navigation from 'templates/Navigation';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import IssueInvoice from 'Pages/IssueInvoice';
+import { Outlet } from 'react-router';
 import { Wrapper } from './DashboardTemplate.styles';
 
 const DashboardTemplate: FC = () => {
@@ -11,13 +10,7 @@ const DashboardTemplate: FC = () => {
             <Navigation />
             <Box component="main" sx={Wrapper}>
                 <Toolbar />
-                <Routes>
-                    <Route
-                        path="/"
-                        element={<Navigate replace to="/issue-invoice" />}
-                    />
-                    <Route path="/issue-invoice" element={<IssueInvoice />} />
-                </Routes>
+                <Outlet />
             </Box>
         </Box>
     );
