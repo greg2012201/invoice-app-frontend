@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import LoginForm from 'components/LoginForm';
 import React, { FC } from 'react';
 
 const Login: FC = () => {
@@ -9,7 +10,7 @@ const Login: FC = () => {
             alignItems="center"
             minHeight="100vh"
         >
-            Login
+            <LoginForm />
         </Box>
     );
 };
