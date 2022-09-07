@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Card, CardHeader, Typography, Box, Button } from '@mui/material';
+import { Card, CardHeader, Typography, Box } from '@mui/material';
 import { Footer, FooterMessage, TextButton } from './LoginForm.styles';
 
 const LoginForm: FC = () => {
