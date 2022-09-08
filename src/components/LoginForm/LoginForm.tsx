@@ -2,10 +2,16 @@ import React, { FC, useState } from 'react';
 import { Card, CardHeader, Typography, Box } from '@mui/material';
 import { Footer, FooterMessage, TextButton } from './LoginForm.styles';
 
+type Mode = 'login' | 'register';
+
 const LoginForm: FC = () => {
-    const [mode, setMode] = useState<'login' | 'register'>('login');
+    const defaultMode = 'login';
+    const [mode, setMode] = useState<Mode>(defaultMode);
     const handleChangeMode = (): void => {
-        setMode('login');
+        /* eslint-disable-next-line */
+        setMode(prevState => {
+            return prevState === defaultMode ? 'register' : defaultMode;
+        });
     };
     return (
         <Card>
@@ -18,7 +24,7 @@ const LoginForm: FC = () => {
                     Would you like to{' '}
                     <TextButton onClick={handleChangeMode} type="button">
                         <Typography sx={FooterMessage}>
-                            create new account
+                            {mode === 'login' ? 'create new account' : 'log in'}
                         </Typography>
                     </TextButton>
                     ?
