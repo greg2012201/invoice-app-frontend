@@ -19,3 +19,8 @@ export const TextButton = styled.button`
         text-decoration: underline;
     }
 `;
+export const ButtonWrapper = {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    padding: '16px 0',
+};

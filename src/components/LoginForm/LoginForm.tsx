@@ -1,7 +1,18 @@
 import React, { FC, useState } from 'react';
-import { Card, CardHeader, Typography, Box, CardContent } from '@mui/material';
-
-import { Footer, FooterMessage, TextButton } from './LoginForm.styles';
+import {
+    Card,
+    CardHeader,
+    Typography,
+    Box,
+    CardContent,
+    Button,
+} from '@mui/material';
+import {
+    Footer,
+    FooterMessage,
+    TextButton,
+    ButtonWrapper,
+} from './LoginForm.styles';
 import InputFieldGroup from './InputFieldGroup';
 import { Mode } from './types';
 
@@ -22,7 +33,14 @@ const LoginForm: FC = () => {
                 subheader="Please log in to get access to the app."
             />
             <CardContent>
-                <InputFieldGroup mode={mode} />
+                <form>
+                    <InputFieldGroup mode={mode} />
+                    <Box sx={ButtonWrapper}>
+                        <Button type="submit" size="small" variant="contained">
+                            {mode === 'register' ? 'Sign up' : 'Sign in'} ✔️
+                        </Button>
+                    </Box>
+                </form>
             </CardContent>
             <Box sx={Footer}>
                 <Typography sx={FooterMessage}>
