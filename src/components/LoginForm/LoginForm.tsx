@@ -3,8 +3,7 @@ import { Card, CardHeader, Typography, Box, CardContent } from '@mui/material';
 
 import { Footer, FooterMessage, TextButton } from './LoginForm.styles';
 import InputFieldGroup from './InputFieldGroup';
-
-type Mode = 'login' | 'register';
+import { Mode } from './types';
 
 const LoginForm: FC = () => {
     const defaultMode = 'login';
@@ -23,7 +22,7 @@ const LoginForm: FC = () => {
                 subheader="Please log in to get access to the app."
             />
             <CardContent>
-                <InputFieldGroup />
+                <InputFieldGroup mode={mode} />
             </CardContent>
             <Box sx={Footer}>
                 <Typography sx={FooterMessage}>
