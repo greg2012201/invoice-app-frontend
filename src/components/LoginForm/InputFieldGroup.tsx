@@ -12,14 +12,17 @@ import {
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Wrapper } from './InputFieldGroup.styles';
+import { Mode } from './types';
 
 const SharedTextInputProps: BaseTextFieldProps = {
     size: 'small',
     variant: 'outlined',
     fullWidth: true,
 };
-
-const InputFieldGroup: FC = () => {
+interface Props {
+    mode: Mode;
+}
+const InputFieldGroup: FC<Props> = ({ mode }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const handleTogglePassword = (): void => {
         /* eslint-disable-next-line */
@@ -27,6 +30,14 @@ const InputFieldGroup: FC = () => {
     };
     return (
         <Box sx={Wrapper}>
+            {mode === 'register' && (
+                <TextField
+                    id="name"
+                    name="name"
+                    label="Name"
+                    {...SharedTextInputProps}
+                />
+            )}
             <TextField
                 id="email"
                 name="email"
@@ -45,7 +56,7 @@ const InputFieldGroup: FC = () => {
                 <OutlinedInput
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     label="password"
                     size="small"
                     endAdornment={
