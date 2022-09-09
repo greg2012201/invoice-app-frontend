@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { indigo } from '@mui/material/colors';
 
 export const Footer = {
-    paddingLeft: '18px',
+    padding: '0 18px 12px',
     color: 'text.secondary',
 };
 export const FooterMessage = {
