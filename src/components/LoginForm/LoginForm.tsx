@@ -1,6 +1,8 @@
 import React, { FC, useState } from 'react';
-import { Card, CardHeader, Typography, Box } from '@mui/material';
+import { Card, CardHeader, Typography, Box, CardContent } from '@mui/material';
+
 import { Footer, FooterMessage, TextButton } from './LoginForm.styles';
+import InputFieldGroup from './InputFieldGroup';
 
 type Mode = 'login' | 'register';
 
@@ -13,12 +15,16 @@ const LoginForm: FC = () => {
             return prevState === defaultMode ? 'register' : defaultMode;
         });
     };
+
     return (
         <Card>
             <CardHeader
                 title="Welcome 👋"
                 subheader="Please log in to get access to the app."
             />
+            <CardContent>
+                <InputFieldGroup />
+            </CardContent>
             <Box sx={Footer}>
                 <Typography sx={FooterMessage}>
                     Would you like to{' '}
