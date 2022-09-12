@@ -1,8 +1,7 @@
 import { setAccessToken } from './accessToken';
 
 export const fetchAccessToken = (onSuccess?: () => void): void => {
-    /* eslint-disable-next-line */
-    fetch(process.env.REFRESH_TOKEN_URL!, {
+    fetch(`${process.env.REACT_APP_REFRESH_TOKEN_URL}`, {
         method: 'POST',
         credentials: 'include',
     }).then(async res => {
