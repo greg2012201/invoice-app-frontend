@@ -30,7 +30,7 @@ interface ExtendedFieldValues extends FieldValues {
 type Error = {
     type?: string;
     message?: string;
-    ref?: any;
+    ref?: HTMLInputElement | null;
 };
 interface Errors {
     name?: Error;
