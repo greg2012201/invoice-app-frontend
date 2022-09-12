@@ -12,7 +12,7 @@ const Root: FC = () => {
         fetchAccessToken(() => setLoading(false));
     }, []);
     if (loading) {
-        <p>loading...</p>;
+        return <p>loading...</p>;
     }
     return (
         <Routes>
