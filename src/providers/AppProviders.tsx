@@ -8,7 +8,7 @@ interface Props {
     children: JSX.Element;
 }
 
-const uri: string | undefined = process.env.API_URI;
+const uri: string | undefined = `${process.env.REACT_APP_API_URI}`;
 
 const AppProviders: FC<Props> = ({ children }) => {
     const client = new ApolloClient({
