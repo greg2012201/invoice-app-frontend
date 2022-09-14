@@ -1,10 +1,14 @@
 import { setAccessToken } from './accessToken';
 
-export const fetchAccessToken = (onSuccess?: () => void): void => {
-    fetch(`${process.env.REACT_APP_REFRESH_TOKEN_URL}`, {
+export const fetchAccessToken = (): Promise<Response> => {
+    return fetch(`${process.env.REACT_APP_REFRESH_TOKEN_URL}`, {
         method: 'POST',
         credentials: 'include',
-    }).then(async res => {
+    });
+};
+
+export const handleFetchAccessToken = (onSuccess?: () => void): void => {
+    fetchAccessToken().then(async res => {
         const { accessToken } = await res.json();
         setAccessToken(accessToken);
         if (!onSuccess) {
