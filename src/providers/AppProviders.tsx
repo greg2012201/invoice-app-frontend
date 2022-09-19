@@ -9,7 +9,7 @@ import { apolloClientConfig } from 'utils/apolloClientConfig';
 interface Props {
     children: JSX.Element;
 }
-const client = apolloClientConfig();
+const client = apolloClientConfig;
 const AppProviders: FC<Props> = ({ children }) => {
     return (
         <ApolloProvider client={client}>
