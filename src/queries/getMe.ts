@@ -4,6 +4,8 @@ export const GET_ME = gql`
     query GetMe {
         getMe {
             id
+            name
+            email
         }
     }
 `;
