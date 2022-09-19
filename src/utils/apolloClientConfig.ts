@@ -4,7 +4,6 @@ import {
     HttpLink,
     ApolloLink,
     Observable,
-    NormalizedCacheObject,
 } from '@apollo/client';
 import { getAccessToken, setAccessToken } from 'utils/accessToken';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
@@ -78,20 +77,18 @@ const tokenRefreshLink: any = new TokenRefreshLink({
     },
 });
 
-export const apolloClientConfig = (): ApolloClient<NormalizedCacheObject> => {
-    return new ApolloClient({
-        link: ApolloLink.from([
-            tokenRefreshLink,
-            onError(({ graphQLErrors, networkError }) => {
-                console.log(graphQLErrors);
-                console.log(networkError);
-            }),
-            requestLink,
-            new HttpLink({
-                uri,
-                credentials: 'include',
-            }),
-        ]),
-        cache: new InMemoryCache(),
-    });
-};
+export const apolloClientConfig = new ApolloClient({
+    link: ApolloLink.from([
+        tokenRefreshLink,
+        onError(({ graphQLErrors, networkError }) => {
+            console.log(graphQLErrors);
+            console.log(networkError);
+        }),
+        requestLink,
+        new HttpLink({
+            uri,
+            credentials: 'include',
+        }),
+    ]),
+    cache: new InMemoryCache(),
+});
