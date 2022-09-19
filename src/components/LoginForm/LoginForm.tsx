@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
+import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import {
     Card,
     CardHeader,
@@ -8,6 +10,9 @@ import {
     CardContent,
     Button,
 } from '@mui/material';
+import { setAccessToken } from 'utils/accessToken';
+import { LOGIN } from 'queries/login';
+import { REGISTER } from 'queries/register';
 import {
     Footer,
     FooterMessage,
@@ -24,6 +29,18 @@ interface User {
 }
 
 const LoginForm: FC = () => {
+    const navigate = useNavigate();
+
+    const [fetchRegister] = useMutation(REGISTER, {
+        onCompleted: () => navigate('/dashboard'),
+    });
+    const [fetchLogin] = useMutation(LOGIN, {
+        onCompleted: data => {
+            setAccessToken(data?.login?.accessToken);
+            navigate('/dashboard');
+        },
+    });
+
     const {
         register,
         handleSubmit,
@@ -41,7 +58,15 @@ const LoginForm: FC = () => {
         });
     };
     /* eslint-disable-next-line */
-    const onSubmit = (data: User): void => console.log(data);
+    const onSubmit = (data: User): void => {
+        if (mode === 'register') {
+            fetchRegister({ variables: data });
+        }
+        if (mode === 'login') {
+            fetchLogin({ variables: data });
+        }
+    };
+
     return (
         <Card>
             <CardHeader
