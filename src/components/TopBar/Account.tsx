@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react';
-import { IconButton, Popper, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { GET_ME } from 'queries/getMe';
+import { useQuery } from '@apollo/client';
 
 const Account: FC = () => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+    const { data, loading } = useQuery(GET_ME);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const handleOpenMenu = (e: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(e?.currentTarget);
     };
@@ -14,8 +16,12 @@ const Account: FC = () => {
     const logout = (): void => {
         handleCloseMenu();
     };
+    if (loading) {
+        return null;
+    }
     return (
-        <div>
+        <Toolbar>
+            <Typography>{data?.getMe?.name}</Typography>
             <IconButton
                 onClick={handleOpenMenu}
                 size="large"
@@ -43,7 +49,7 @@ const Account: FC = () => {
             >
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
-        </div>
+        </Toolbar>
     );
 };
 
