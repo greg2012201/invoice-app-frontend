@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Typography, AppBar, Toolbar, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Wrapper, Icon } from './TobBar.styles';
+import Account from './Account';
 
 interface Props {
     handleDrawerToggle: () => void;
@@ -24,6 +25,7 @@ const TopBar: FC<Props> = ({ handleDrawerToggle }) => {
                     Invoice App
                 </Typography>
             </Toolbar>
+            <Account />
         </AppBar>
     );
 };
