@@ -10,7 +10,7 @@ const Account: FC = () => {
     const navigate = useNavigate();
     const { data, loading } = useQuery(GET_ME);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [logout] = useMutation(LOGOUT, {
+    const [fetchLogout] = useMutation(LOGOUT, {
         onCompleted: (): void => navigate('/login'),
     });
     const handleOpenMenu = (e: React.MouseEvent<HTMLElement>): void => {
@@ -20,7 +20,7 @@ const Account: FC = () => {
         setAnchorEl(null);
     };
     const handleLogout = (): void => {
-        logout();
+        fetchLogout();
         handleCloseMenu();
     };
     if (loading) {
