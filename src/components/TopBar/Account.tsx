@@ -4,11 +4,15 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { GET_ME } from 'queries/getMe';
 import { useMutation, useQuery } from '@apollo/client';
 import { LOGOUT } from 'queries/logout';
+import { useNavigate } from 'react-router';
 
 const Account: FC = () => {
+    const navigate = useNavigate();
     const { data, loading } = useQuery(GET_ME);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [logout] = useMutation(LOGOUT);
+    const [logout] = useMutation(LOGOUT, {
+        onCompleted: (): void => navigate('/login'),
+    });
     const handleOpenMenu = (e: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(e?.currentTarget);
     };
@@ -17,7 +21,6 @@ const Account: FC = () => {
     };
     const handleLogout = (): void => {
         logout();
-        window.location.replace('/');
         handleCloseMenu();
     };
     if (loading) {
