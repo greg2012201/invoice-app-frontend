@@ -32,7 +32,10 @@ const LoginForm: FC = () => {
     const navigate = useNavigate();
 
     const [fetchRegister] = useMutation(REGISTER, {
-        onCompleted: () => navigate('/dashboard'),
+        onCompleted: data => {
+            setAccessToken(data?.register || '');
+            navigate('/dashboard');
+        },
     });
     const [fetchLogin] = useMutation(LOGIN, {
         onCompleted: data => {
