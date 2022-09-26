@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useMutation, ApolloError } from '@apollo/client';
 import { useForm } from 'react-hook-form';
+import { AUTH_ERROR_CODES } from 'constants/loginFormErrorCodes';
 import { useNavigate } from 'react-router-dom';
 import {
     Card,
@@ -46,11 +47,14 @@ const LoginForm: FC = () => {
         },
         onError: (err: ApolloError) => {
             /* eslint-disable-next-line */
+            const { DUPLICATED_USER_NAME, DUPLICATED_USER_EMAIL } =
+                AUTH_ERROR_CODES;
+            /* eslint-disable-next-line */
             const code: string | unknown = err.graphQLErrors[0].extensions.code;
-            if (code === 'DUPLICATED_USER_NAME') {
+            if (code === DUPLICATED_USER_NAME) {
                 setError('name', { message: err.message });
             }
-            if (code === 'DUPLICATED_USER_EMAIL') {
+            if (code === DUPLICATED_USER_EMAIL) {
                 setError('email', { message: err.message });
             }
         },
