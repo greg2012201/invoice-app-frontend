@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, ApolloError } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -30,11 +30,29 @@ interface User {
 
 const LoginForm: FC = () => {
     const navigate = useNavigate();
-
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setError,
+    } = useForm({
+        mode: 'all',
+        defaultValues: { name: '', email: '', password: '' },
+    });
     const [fetchRegister] = useMutation(REGISTER, {
         onCompleted: data => {
             setAccessToken(data?.register || '');
             navigate('/dashboard');
+        },
+        onError: (err: ApolloError) => {
+            /* eslint-disable-next-line */
+            const code: string | unknown = err.graphQLErrors[0].extensions.code;
+            if (code === 'DUPLICATED_USER_NAME') {
+                setError('name', { message: err.message });
+            }
+            if (code === 'DUPLICATED_USER_EMAIL') {
+                setError('email', { message: err.message });
+            }
         },
     });
     const [fetchLogin] = useMutation(LOGIN, {
@@ -44,14 +62,6 @@ const LoginForm: FC = () => {
         },
     });
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        mode: 'all',
-        defaultValues: { name: '', email: '', password: '' },
-    });
     const defaultMode = 'login';
     const [mode, setMode] = useState<Mode>(defaultMode);
     const handleChangeMode = (): void => {
