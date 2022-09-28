@@ -5,6 +5,7 @@ import Login from 'Pages/Login';
 import IssueInvoice from 'Pages/IssueInvoice';
 import PrivateRoutes from 'templates/PrivateRoutes';
 import { handleFetchAccessToken } from 'utils/fetchAccessToken';
+import { CircularProgress, Box } from '@mui/material';
 
 const Root: FC = () => {
     const [loading, setLoading] = useState(true);
@@ -12,7 +13,16 @@ const Root: FC = () => {
         handleFetchAccessToken(() => setLoading(false));
     }, []);
     if (loading) {
-        return <p>loading...</p>;
+        return (
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+            >
+                <CircularProgress size={60} />
+            </Box>
+        );
     }
     return (
         <Routes>
