@@ -40,26 +40,30 @@ const LoginForm: FC = () => {
         mode: 'all',
         defaultValues: { name: '', email: '', password: '' },
     });
-    const [fetchRegister] = useMutation(REGISTER, {
-        onCompleted: data => {
-            setAccessToken(data?.register || '');
-            navigate('/dashboard');
-        },
-        onError: (err: ApolloError) => {
-            /* eslint-disable-next-line */
-            const { DUPLICATED_USER_NAME, DUPLICATED_USER_EMAIL } =
-                AUTH_ERROR_CODES;
-            /* eslint-disable-next-line */
-            const code: string | unknown = err.graphQLErrors[0].extensions.code;
-            if (code === DUPLICATED_USER_NAME) {
-                setError('name', { message: err.message });
-            }
-            if (code === DUPLICATED_USER_EMAIL) {
-                setError('email', { message: err.message });
-            }
-        },
-    });
-    const [fetchLogin] = useMutation(LOGIN, {
+    const [fetchRegister, { loading: registerFetching }] = useMutation(
+        REGISTER,
+        {
+            onCompleted: data => {
+                setAccessToken(data?.register || '');
+                navigate('/dashboard');
+            },
+            onError: (err: ApolloError) => {
+                /* eslint-disable-next-line */
+                const { DUPLICATED_USER_NAME, DUPLICATED_USER_EMAIL } =
+                    AUTH_ERROR_CODES;
+                /* eslint-disable-next-line */
+                const code: string | unknown =
+                    err.graphQLErrors[0].extensions.code;
+                if (code === DUPLICATED_USER_NAME) {
+                    setError('name', { message: err.message });
+                }
+                if (code === DUPLICATED_USER_EMAIL) {
+                    setError('email', { message: err.message });
+                }
+            },
+        }
+    );
+    const [fetchLogin, { loading: loginFetching }] = useMutation(LOGIN, {
         onCompleted: data => {
             setAccessToken(data?.login?.accessToken);
             navigate('/dashboard');
@@ -94,7 +98,6 @@ const LoginForm: FC = () => {
             fetchLogin({ variables: data });
         }
     };
-
     return (
         <Card>
             <CardHeader
@@ -109,7 +112,12 @@ const LoginForm: FC = () => {
                         mode={mode}
                     />
                     <Box sx={ButtonWrapper}>
-                        <Button type="submit" size="small" variant="contained">
+                        <Button
+                            type="submit"
+                            size="small"
+                            variant="contained"
+                            disabled={registerFetching || loginFetching}
+                        >
                             {mode === 'register' ? 'Sign up' : 'Sign in'} ✔️
                         </Button>
                     </Box>
