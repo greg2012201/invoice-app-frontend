@@ -64,6 +64,17 @@ const LoginForm: FC = () => {
             setAccessToken(data?.login?.accessToken);
             navigate('/dashboard');
         },
+        onError: (err: ApolloError) => {
+            const { USER_NOT_FOUND, INVALID_PASSWORD } = AUTH_ERROR_CODES;
+            /* eslint-disable-next-line */
+            const code: string | unknown = err.graphQLErrors[0].extensions.code;
+            if (code === USER_NOT_FOUND) {
+                setError('email', { message: err.message });
+            }
+            if (code === INVALID_PASSWORD) {
+                setError('password', { message: err.message });
+            }
+        },
     });
 
     const defaultMode = 'login';
