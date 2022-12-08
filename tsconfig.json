@@ -20,7 +20,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "src",
+    "baseUrl": "./",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
@@ -29,10 +29,16 @@
         "./node_modules/@mui/styled-engine-sc"
       ]
     },
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "src"
+    "src",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
