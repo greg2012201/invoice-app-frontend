@@ -7,6 +7,11 @@ module.exports = {
                 destination: '/dashboard/',
                 permanent: true,
             },
+            {
+                source: '/dashboard',
+                destination: '/dashboard/issue-invoice/',
+                permanent: true,
+            },
         ];
     },
 };
