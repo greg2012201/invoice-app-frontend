@@ -1,5 +1,5 @@
 module.exports = {
-    experimental: { appDir: true },
+    experimental: { appDir: false },
     async redirects() {
         return [
             {
