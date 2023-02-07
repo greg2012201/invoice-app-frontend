@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import { useMutation, ApolloError } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { AUTH_ERROR_CODES } from 'constants/loginFormErrorCodes';
-import { useNavigate } from 'react-router-dom';
 import {
     Card,
     CardHeader,
@@ -30,7 +29,6 @@ interface User {
 }
 
 const LoginForm: FC = () => {
-    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -45,7 +43,7 @@ const LoginForm: FC = () => {
         {
             onCompleted: data => {
                 setAccessToken(data?.register || '');
-                navigate('/dashboard');
+                /* navigate('/dashboard'); */
             },
             onError: (err: ApolloError) => {
                 /* eslint-disable-next-line */
@@ -66,7 +64,7 @@ const LoginForm: FC = () => {
     const [fetchLogin, { loading: loginFetching }] = useMutation(LOGIN, {
         onCompleted: data => {
             setAccessToken(data?.login?.accessToken);
-            navigate('/dashboard');
+            /* navigate('/dashboard'); */
         },
         onError: (err: ApolloError) => {
             const { USER_NOT_FOUND, INVALID_PASSWORD } = AUTH_ERROR_CODES;
