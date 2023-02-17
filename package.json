@@ -23,6 +23,7 @@
         "apollo-link-error": "^1.1.13",
         "apollo-link-http": "^1.5.17",
         "apollo-link-token-refresh": "^0.4.0",
+        "cookies-next": "^2.1.1",
         "graphql": "^16.6.0",
         "jwt-decode": "^3.1.2",
         "next": "^13.0.6",
