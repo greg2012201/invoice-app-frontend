@@ -11,7 +11,9 @@ export const middleware = async (
         headers: { Cookie: `${jid?.name}=${jid?.value}` },
     }).then(res => res.json());
     const response = NextResponse.next();
-    response.cookies.set('access_token', apiRes.accessToken);
+    if (apiRes?.accessToken) {
+        response.cookies.set('access_token', apiRes.accessToken);
+    }
 
     return response;
 };
