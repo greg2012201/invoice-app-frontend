@@ -48,14 +48,14 @@ const requestLink = new ApolloLink(
 const tokenRefreshLink: TokenRefreshLink<string> = new TokenRefreshLink({
     accessTokenField: 'accessToken',
     isTokenValidOrUndefined: () => {
-        const token: CookieValueTypes = getCookie('access_token') as string;
+        const token: CookieValueTypes = getCookie('access_token');
 
         if (!token) {
             return true;
         }
 
         try {
-            const { exp }: { exp: number } = jwtDecode(token);
+            const { exp }: { exp: number } = jwtDecode(token as string);
             if (Date.now() >= exp * 1000) {
                 return false;
                 /* eslint-disable-next-line */
