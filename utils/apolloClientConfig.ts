@@ -5,23 +5,24 @@ import {
     ApolloLink,
     Observable,
 } from '@apollo/client';
-import { getAccessToken, setAccessToken } from 'utils/accessToken';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
 import { onError } from '@apollo/client/link/error';
 import jwtDecode from 'jwt-decode';
-import { fetchAccessToken } from 'utils/fetchAccessToken';
+import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
+import { fetchAccessToken } from './fetchAccessToken';
 
-const uri: string | undefined = `${process.env.REACT_APP_API_URI}`;
-
+const uri: string | undefined = `${
+    process.env.REACT_APP_API_URI || 'http://localhost:4000/graphql'
+}`;
 const requestLink = new ApolloLink(
     (operation, forward) =>
         /* eslint-disable-next-line */
         new Observable(observer => {
-            let handle: any;
+            let handle: { unsubscribe: () => void };
             Promise.resolve(operation)
                 /* eslint-disable-next-line */
                 .then(operation => {
-                    const accessToken = getAccessToken();
+                    const accessToken = getCookie('access_token');
                     if (accessToken) {
                         operation.setContext({
                             headers: {
@@ -44,10 +45,10 @@ const requestLink = new ApolloLink(
             };
         })
 );
-const tokenRefreshLink: any = new TokenRefreshLink({
+const tokenRefreshLink: TokenRefreshLink<string> = new TokenRefreshLink({
     accessTokenField: 'accessToken',
     isTokenValidOrUndefined: () => {
-        const token = getAccessToken();
+        const token: CookieValueTypes = getCookie('access_token') as string;
 
         if (!token) {
             return true;
@@ -69,7 +70,7 @@ const tokenRefreshLink: any = new TokenRefreshLink({
         return fetchAccessToken();
     },
     handleFetch: accessToken => {
-        setAccessToken(accessToken);
+        setCookie('access_token', accessToken);
     },
     handleError: err => {
         console.warn('Your refresh token is invalid. Try to relogin');
