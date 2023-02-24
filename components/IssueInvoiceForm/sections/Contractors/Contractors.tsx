@@ -12,7 +12,6 @@ const Contractors: FC = () => {
                 ([key, value]: [key: string, value: Contractor]) => {
                     const contractor = value;
                     return (
-                        /* eslint-disable-next-line */
                         <ContractorCard contractorType={key} {...contractor} />
                     );
                 }
