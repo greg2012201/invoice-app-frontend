@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
-import IssueInvoiceForm from 'components/IssueInvoiceForm';
 
+const IssueInvoiceForm = dynamic(() => import('components/IssueInvoiceForm'), {
+    ssr: false,
+});
 const IssueInvoice: FC = () => {
     return (
         <div>
