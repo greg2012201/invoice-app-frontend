@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "es2021",
         "lib": ["dom", "dom.iterable", "esnext", "es6"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -15,12 +15,19 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "preserve",
-        "baseUrl": "./",
+        "baseUrl": ".",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "paths": {
-            "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
+            "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
+            "@/components/*": ["components/*"],
+            "@/queries/*": ["queries/*"],
+            "@/utils/*": ["utils/*"],
+            "@/types/*": ["types/*"],
+            "@/providers/*": ["providers/*"],
+            "@/hooks/*": ["hooks/*"],
+            "@/constants/*": ["constants/*"]
         },
         "incremental": true,
         "plugins": [
@@ -29,6 +36,6 @@
             }
         ]
     },
-    "include": ["src", ".next/types/**/*.ts"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }
