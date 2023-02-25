@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
-import TopBar from 'components/TopBar';
-import LeftBar from 'components/LeftBar';
+import LeftBar from '@/components/LeftBar';
+import TopBar from '@/components/TopBar';
 
 const Navigation: FC = () => {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);

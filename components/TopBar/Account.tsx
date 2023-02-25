@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { GET_ME } from 'queries/getMe';
 import { useMutation, useQuery } from '@apollo/client';
 import { LOGOUT } from 'queries/logout';
 import { useNavigate } from 'react-router';
+import { GET_ME } from '@/queries/getMe';
 
 const Account: FC = () => {
     const navigate = useNavigate();
