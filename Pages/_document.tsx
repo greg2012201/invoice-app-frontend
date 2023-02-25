@@ -1,8 +1,12 @@
 // source: https://blog.logrocket.com/getting-started-with-mui-and-next-js/
 
-import * as React from 'react';
+import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
+import {
+    ComponentsEnhancer,
+    DocumentInitialProps,
+} from 'next/dist/shared/lib/utils';
 import createEmotionCache from '../utils/createEmotionCache';
 
 export default class MyDocument extends Document {
@@ -10,7 +14,7 @@ export default class MyDocument extends Document {
     render() {
         return (
             <Html lang="en">
-                <Head>{this.props.emotionStyleTags}</Head>
+                <Head>{(this.props as any).emotionStyleTags}</Head>
                 <body>
                     <Main />
                     <NextScript />
@@ -21,15 +25,20 @@ export default class MyDocument extends Document {
 }
 
 MyDocument.getInitialProps = async ctx => {
-    const originalRenderPage = ctx.renderPage;
+    const originalRenderPage: (
+        options?: ComponentsEnhancer | undefined
+    ) => DocumentInitialProps | Promise<DocumentInitialProps> = ctx.renderPage;
 
     const cache = createEmotionCache();
     const { extractCriticalToChunks } = createEmotionServer(cache);
 
     ctx.renderPage = () =>
+        /* eslint-disable-next-line */
         originalRenderPage({
-            enhanceApp: App =>
-                function EnhanceApp(props) {
+            enhanceApp:
+                (App: any) =>
+                /* eslint-disable-next-line */
+                props => {
                     return <App emotionCache={cache} {...props} />;
                 },
         });
