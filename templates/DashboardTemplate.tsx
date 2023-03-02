@@ -1,16 +1,19 @@
 import React, { FC } from 'react';
 import { Box, Toolbar } from '@mui/material';
 import Navigation from 'templates/Navigation';
-import { Outlet } from 'react-router';
 import { Wrapper } from './DashboardTemplate.styles';
 
-const DashboardTemplate: FC = () => {
+interface Props {
+    children: JSX.Element;
+}
+
+const DashboardTemplate: FC<Props> = ({ children }) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <Navigation />
             <Box component="main" sx={Wrapper}>
                 <Toolbar />
-                <Outlet />
+                {children}
             </Box>
         </Box>
     );
