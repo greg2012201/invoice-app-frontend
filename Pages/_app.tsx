@@ -4,7 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { EmotionCache } from '@emotion/cache';
 
 // import Layout from '../components/layout';
+import DashboardTemplate from 'templates/DashboardTemplate';
 import AppProviders from 'providers/AppProviders';
+import { useRouter } from 'next/router';
 import createEmotionCache from '../utils/createEmotionCache';
 
 interface MyAppProps extends AppProps {
@@ -17,11 +19,17 @@ const MyApp = ({
     pageProps,
     emotionCache = clientSideEmotionCache,
 }: MyAppProps): JSX.Element => {
-    // Dashboard Layout should be present here in the future
+    const router = useRouter();
     return (
         <AppProviders emotionCache={emotionCache}>
             <CssBaseline>
-                <Component {...pageProps} />
+                {router.asPath === '/login' ? (
+                    <Component {...pageProps} />
+                ) : (
+                    <DashboardTemplate>
+                        <Component {...pageProps} />
+                    </DashboardTemplate>
+                )}
             </CssBaseline>
         </AppProviders>
     );
