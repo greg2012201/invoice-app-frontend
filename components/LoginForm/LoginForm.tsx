@@ -10,9 +10,9 @@ import {
     CardContent,
     Button,
 } from '@mui/material';
-import { setAccessToken } from 'utils/accessToken';
 import { LOGIN } from 'queries/login';
 import { REGISTER } from 'queries/register';
+import { useRouter } from 'next/router';
 import {
     Footer,
     FooterMessage,
@@ -29,6 +29,7 @@ interface User {
 }
 
 const LoginForm: FC = () => {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -41,9 +42,8 @@ const LoginForm: FC = () => {
     const [fetchRegister, { loading: registerFetching }] = useMutation(
         REGISTER,
         {
-            onCompleted: data => {
-                setAccessToken(data?.register || '');
-                /* navigate('/dashboard'); */
+            onCompleted: () => {
+                router.push('/dashboard');
             },
             onError: (err: ApolloError) => {
                 /* eslint-disable-next-line */
@@ -62,9 +62,8 @@ const LoginForm: FC = () => {
         }
     );
     const [fetchLogin, { loading: loginFetching }] = useMutation(LOGIN, {
-        onCompleted: data => {
-            setAccessToken(data?.login?.accessToken);
-            /* navigate('/dashboard'); */
+        onCompleted: () => {
+            router.push('/dashboard');
         },
         onError: (err: ApolloError) => {
             const { USER_NOT_FOUND, INVALID_PASSWORD } = AUTH_ERROR_CODES;
