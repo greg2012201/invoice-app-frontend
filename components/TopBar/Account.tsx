@@ -3,15 +3,16 @@ import { IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useMutation, useQuery } from '@apollo/client';
 import { LOGOUT } from 'queries/logout';
-import { useNavigate } from 'react-router';
 import { GET_ME } from '@/queries/getMe';
+import { deleteCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
 
 const Account: FC = () => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { data, loading } = useQuery(GET_ME);
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [fetchLogout] = useMutation(LOGOUT, {
-        onCompleted: (): void => navigate('/login'),
+        onCompleted: (): Promise<boolean> => router.push('/login'),
     });
     const handleOpenMenu = (e: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(e?.currentTarget);
@@ -21,6 +22,7 @@ const Account: FC = () => {
     };
     const handleLogout = (): void => {
         fetchLogout();
+        deleteCookie('access_token');
         handleCloseMenu();
     };
     if (loading) {
