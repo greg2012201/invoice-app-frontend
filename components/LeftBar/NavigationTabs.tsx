@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { Tabs, Tab } from '@mui/material';
-import { Link, matchPath, useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { SECTIONS } from 'constants/navigation';
+import Link from 'next/link';
 import { Wrapper, Item } from './NavigationTabs.styles';
 
 interface Match {
@@ -13,11 +14,12 @@ interface Props {
     handleDrawerToggle: () => void;
 }
 const NavigationTabs: FC<Props> = ({ handleDrawerToggle }) => {
-    const { pathname } = useLocation();
+    const { asPath } = useRouter();
     const getRouteMatch = (patterns: readonly string[]): Match | null => {
         /* eslint-disable-next-line */
         for (const pattern of patterns) {
-            const possibleMatch = matchPath(pattern, pathname);
+            const possibleMatch =
+                pattern === asPath ? { pattern: { path: pattern } } : null;
             if (possibleMatch !== null) {
                 return possibleMatch;
             }
@@ -34,7 +36,7 @@ const NavigationTabs: FC<Props> = ({ handleDrawerToggle }) => {
                     label={name}
                     key={name}
                     value={path}
-                    to={path}
+                    href={path}
                     component={Link}
                     sx={Item}
                     onClick={handleDrawerToggle}
