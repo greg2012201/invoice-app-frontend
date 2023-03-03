@@ -9,7 +9,7 @@ interface Props {
 }
 
 const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
-    const container = window.document.body;
+    const container = typeof window !== 'undefined' && window.document.body;
     const drawer = (
         <div>
             <Toolbar>
@@ -22,7 +22,7 @@ const LeftBar: FC<Props> = ({ mobileOpen, handleDrawerToggle }) => {
     return (
         <Box component="nav" sx={Wrapper} aria-label="sections">
             <Drawer
-                container={container}
+                container={container as HTMLElement}
                 variant="temporary"
                 onClose={handleDrawerToggle}
                 open={mobileOpen}
