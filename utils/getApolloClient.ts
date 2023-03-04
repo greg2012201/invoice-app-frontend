@@ -12,11 +12,6 @@ import jwtDecode from 'jwt-decode';
 import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
 import { fetchAccessToken } from './fetchAccessToken';
 
-interface GetApolloClientProps {
-    isSSR: boolean;
-    accessToken?: string;
-}
-
 const uri: string | undefined = `${
     process.env.REACT_APP_API_URI || 'http://localhost:4000/graphql'
 }`;
@@ -95,14 +90,13 @@ const tokenRefreshLink = (
     });
 };
 
-export const getApolloClient = ({
-    isSSR,
-    accessToken,
-}: GetApolloClientProps): ApolloClient<NormalizedCacheObject> =>
+export const getApolloClient = (
+    accessToken: string | undefined
+): ApolloClient<NormalizedCacheObject> =>
     /* eslint-disable-next-line */
     {
         return new ApolloClient({
-            ssrMode: isSSR,
+            ssrMode: typeof window === 'undefined',
             link: ApolloLink.from([
                 tokenRefreshLink(accessToken),
                 onError(({ graphQLErrors, networkError }) => {
