@@ -3,14 +3,14 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from 'themes/mainTheme';
 import { ApolloProvider } from '@apollo/client';
 
-import { apolloClientConfig } from 'utils/apolloClientConfig';
+import { getApolloClient } from '@/utils/getApolloClient';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 
 interface Props {
     children: JSX.Element;
     emotionCache: EmotionCache;
 }
-const client = apolloClientConfig;
+const client = getApolloClient({ isSSR: false });
 const AppProviders: FC<Props> = ({ children, emotionCache }) => {
     return (
         <ApolloProvider client={client}>
