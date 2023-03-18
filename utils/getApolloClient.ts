@@ -118,9 +118,9 @@ export const getApolloClient = (
             cache: new InMemoryCache().restore(initialState),
         });
     };
-interface GetServerSidePropsWithApollo {
+interface GetServerSidePropsWithApollo<T> {
     (
-        context: GetServerSidePropsContext,
+        context: T,
         apolloClient: ApolloClient<NormalizedCacheObject>
     ): GetServerSideProps;
 }
@@ -128,7 +128,9 @@ interface GetServerSidePropsWithApollo {
 export const withApolloClient =
     (context: GetServerSidePropsContext) =>
     /* eslint-disable-next-line */
-    async (getServerSideProps: GetServerSidePropsWithApollo) => {
+    async (
+        getServerSideProps: GetServerSidePropsWithApollo<GetServerSidePropsContext>
+    ) => {
         /* eslint-disable-next-line */
         const apolloClient = getApolloClient({});
         const pageProps = getServerSideProps(context, apolloClient);
