@@ -7,6 +7,7 @@ import {
     NormalizedCacheObject,
 } from '@apollo/client';
 import { TokenRefreshLink } from 'apollo-link-token-refresh';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { onError } from '@apollo/client/link/error';
 import jwtDecode from 'jwt-decode';
 import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
@@ -26,7 +27,9 @@ const requestLink = (externalAccessToken: string | undefined): ApolloLink =>
                     Promise.resolve(operation)
                         /* eslint-disable-next-line */
                         .then(operation => {
+                            /* eslint-disable-next-line */
                             const accessToken =
+                                /* eslint-disable-next-line */
                                 externalAccessToken ||
                                 getCookie('access_token');
                             if (accessToken) {
@@ -58,6 +61,7 @@ const tokenRefreshLink = (
     return new TokenRefreshLink({
         accessTokenField: 'accessToken',
         isTokenValidOrUndefined: () => {
+            /* eslint-disable-next-line */
             const token: CookieValueTypes =
                 externalAccessToken || getCookie('access_token');
 
@@ -91,7 +95,8 @@ const tokenRefreshLink = (
 };
 
 export const getApolloClient = (
-    accessToken: string | undefined
+    initialState: NormalizedCacheObject,
+    accessToken?: string
 ): ApolloClient<NormalizedCacheObject> =>
     /* eslint-disable-next-line */
     {
@@ -110,6 +115,23 @@ export const getApolloClient = (
                     credentials: 'include',
                 }),
             ]),
-            cache: new InMemoryCache(),
+            cache: new InMemoryCache().restore(initialState),
         });
+    };
+interface GetServerSidePropsWithApollo {
+    (
+        context: GetServerSidePropsContext,
+        apolloClient: ApolloClient<NormalizedCacheObject>
+    ): GetServerSideProps;
+}
+/* eslint-disable-next-line */
+export const withApolloClient =
+    (context: GetServerSidePropsContext) =>
+    /* eslint-disable-next-line */
+    async (getServerSideProps: GetServerSidePropsWithApollo) => {
+        /* eslint-disable-next-line */
+        const apolloClient = getApolloClient({});
+        const pageProps = getServerSideProps(context, apolloClient);
+        const apolloState = apolloClient.cache.extract();
+        return { ...pageProps, apolloState };
     };
