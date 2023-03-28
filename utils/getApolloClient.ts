@@ -96,7 +96,8 @@ const tokenRefreshLink = (
 
 export const getApolloClient = (
     initialState: NormalizedCacheObject,
-    accessToken?: string
+    accessToken?: string,
+    refreshToken?: string
 ): ApolloClient<NormalizedCacheObject> =>
     /* eslint-disable-next-line */
     {
@@ -110,10 +111,17 @@ export const getApolloClient = (
                 }),
                 requestLink(accessToken),
                 // inject the access token passed from SSR
-                new HttpLink({
-                    uri,
-                    credentials: 'include',
-                }),
+                new HttpLink(
+                    typeof refreshToken === 'string'
+                        ? {
+                              uri,
+                              headers: { Cookie: refreshToken },
+                          }
+                        : {
+                              uri,
+                              credentials: 'include',
+                          }
+                ),
             ]),
             cache: new InMemoryCache().restore(initialState),
         });
@@ -126,14 +134,16 @@ interface GetServerSidePropsWithApollo<T> {
 }
 /* eslint-disable-next-line */
 export const withApolloClient =
-    (context: GetServerSidePropsContext) =>
-    /* eslint-disable-next-line */
-    async (
+    (
         getServerSideProps: GetServerSidePropsWithApollo<GetServerSidePropsContext>
-    ) => {
+    ) =>
+    /* eslint-disable-next-line */
+    async (context: GetServerSidePropsContext) => {
         /* eslint-disable-next-line */
-        const apolloClient = getApolloClient({});
-        const pageProps = getServerSideProps(context, apolloClient);
+        const accessToken = context.req.cookies?.access_token;
+        const refreshToken = context.req.cookies?.jid;
+        const apolloClient = getApolloClient({}, accessToken, refreshToken);
+        const pageProps = await getServerSideProps(context, apolloClient);
         const apolloState = apolloClient.cache.extract();
-        return { ...pageProps, apolloState };
+        return { props: { ...pageProps, apolloState } };
     };
