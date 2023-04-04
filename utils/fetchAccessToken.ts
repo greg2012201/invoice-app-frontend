@@ -1,19 +1,13 @@
-import { setAccessToken } from './accessToken';
+const isSSR = typeof window === 'undefined';
 
 export const fetchAccessToken = (): Promise<Response> => {
-    return fetch(`${process.env.REACT_APP_REFRESH_TOKEN_URL}`, {
+    // 'need to inject refresh token too to enable serverside'
+    const refreshTokenURL = isSSR
+        ? process.env.REFRESH_TOKEN_URL
+        : process.env.NEXT_PUBLIC_TOKEN_URL;
+    // fix envs
+    return fetch(`${refreshTokenURL}`, {
         method: 'POST',
         credentials: 'include',
-    });
-};
-
-export const handleFetchAccessToken = (onSuccess?: () => void): void => {
-    fetchAccessToken().then(async res => {
-        const { accessToken } = await res.json();
-        setAccessToken(accessToken);
-        if (!onSuccess) {
-            return;
-        }
-        onSuccess();
     });
 };
