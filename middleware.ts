@@ -1,5 +1,5 @@
 import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
 import { GET_ME_STRING } from 'queries/getMe';
 
 interface IAuthResponse {
@@ -20,7 +20,7 @@ export const config = {
 const authFetch = async (cookies: RequestCookies): Promise<IAuthResponse> => {
     const jid = cookies.get('jid');
 
-    return fetch(`${process.env.REACT_APP_REFRESH_TOKEN_URL}`, {
+    return fetch(`${process.env.REFRESH_TOKEN_URL}`, {
         method: 'POST',
         credentials: 'include',
         headers: { Cookie: `${jid?.name}=${jid?.value}` },
@@ -43,18 +43,24 @@ const meFetch = async (cookies: RequestCookies): Promise<IMeResponse> => {
         .catch(err => console.error(err));
 };
 export const middleware = async (
-    req: NextRequest
+    req: NextRequest,
+    event: NextFetchEvent
 ): Promise<NextResponse | unknown> => {
     const { cookies } = req;
     const { pathname } = req.nextUrl;
-    const authRes = await authFetch(cookies);
     const response = NextResponse.next();
-    if (authRes?.accessToken) {
-        response.cookies.set('access_token', authRes.accessToken);
-    }
+    let authRes;
+    event.waitUntil(() => {
+        authRes = authFetch(cookies);
+        if (authRes?.accessToken) {
+            response.cookies.set('access_token', authRes.accessToken);
+        }
+    });
+
     const meRes = await meFetch(cookies);
     if (!meRes?.id && pathname !== '/login' && !authRes?.ok) {
-        const loginUrl = new URL('/login', req.url);
+        const loginUrl = new URL('/login', req.url).toString();
+        console.log({ loginUrl });
         return NextResponse.redirect(loginUrl);
     }
     return response;
