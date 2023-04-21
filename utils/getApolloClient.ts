@@ -13,6 +13,29 @@ import jwtDecode from 'jwt-decode';
 import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
 import { fetchAccessToken } from './fetchAccessToken';
 
+function headerToString<T>(header: T): string | null {
+    if (typeof header === 'string') {
+        return header;
+    }
+    if (typeof header === 'number') {
+        return header.toString();
+    }
+    if (Array.isArray(header)) {
+        return header.reduce((a, b) => a + b);
+    }
+    return null;
+}
+
+function extractAccessToken(
+    maybeHeaderWithAccessToken: string | null
+): string | null {
+    if (!maybeHeaderWithAccessToken) {
+        return null;
+    }
+    const match = maybeHeaderWithAccessToken.match(/access_token=([^;]+)/);
+    return match ? match[1] : null;
+}
+
 const uri: string | undefined = `${
     process.env.REACT_APP_API_URI || 'http://localhost:4000/graphql'
 }`;
@@ -140,7 +163,15 @@ export const withApolloClient =
     /* eslint-disable-next-line */
     async (context: GetServerSidePropsContext) => {
         /* eslint-disable-next-line */
-        const accessToken = context.req.cookies?.access_token;
+        const parsedHeader = headerToString(
+            context.res.getHeader('set-cookie')
+        );
+        /* eslint-disable-next-line */
+        const accessToken =
+            /* eslint-disable-next-line */
+            context.req.cookies?.access_token ||
+            extractAccessToken(parsedHeader);
+
         const refreshToken = context.req.cookies?.jid;
         const apolloClient = getApolloClient({}, accessToken, refreshToken);
         const pageProps = await getServerSideProps(context, apolloClient);
