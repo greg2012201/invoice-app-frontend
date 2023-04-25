@@ -1,6 +1,10 @@
-import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
+import {
+    RequestCookies,
+    ResponseCookies,
+} from 'next/dist/server/web/spec-extension/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 import { GET_ME_STRING } from 'queries/getMe';
+import { isString } from './types/shared';
 
 interface IAuthResponse {
     ok: boolean;
@@ -26,8 +30,13 @@ const authFetch = async (cookies: RequestCookies): Promise<IAuthResponse> => {
         headers: { Cookie: `${jid?.name}=${jid?.value}` },
     }).then(res => res.json());
 };
-const meFetch = async (cookies: RequestCookies): Promise<IMeResponse> => {
+const meFetch = async (
+    cookies: RequestCookies | ResponseCookies
+): Promise<IMeResponse | null> => {
     const accessToken = cookies.get('access_token')?.value;
+    if (!isString(accessToken)) {
+        return null;
+    }
     return fetch(`${process.env.API_URI}`, {
         method: 'POST',
         headers: {
@@ -52,7 +61,7 @@ export const middleware = async (
     if (authRes?.accessToken) {
         response.cookies.set('access_token', authRes.accessToken);
     }
-    const meRes = await meFetch(cookies);
+    const meRes = await meFetch(response.cookies);
     if (!meRes?.id && pathname !== '/login' && !authRes?.ok) {
         const loginUrl = new URL('/login', req.url).toString();
         return NextResponse.redirect(loginUrl);
