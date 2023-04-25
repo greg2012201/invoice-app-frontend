@@ -119,8 +119,8 @@ const tokenRefreshLink = (
 
 export const getApolloClient = (
     initialState: NormalizedCacheObject,
-    accessToken: TToken,
-    refreshToken: TToken
+    accessToken?: TToken,
+    refreshToken?: TToken
 ): ApolloClient<NormalizedCacheObject> =>
     /* eslint-disable-next-line */
     {
