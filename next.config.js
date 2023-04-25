@@ -5,12 +5,12 @@ module.exports = {
             {
                 source: '/',
                 destination: '/dashboard/',
-                permanent: true,
+                permanent: false,
             },
             {
                 source: '/dashboard',
                 destination: '/dashboard/issue-invoice/',
-                permanent: true,
+                permanent: false,
             },
         ];
     },
