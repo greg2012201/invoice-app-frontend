@@ -1,5 +1,5 @@
 import { RequestCookies } from 'next/dist/server/web/spec-extension/cookies';
-import { NextFetchEvent, NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { GET_ME_STRING } from 'queries/getMe';
 
 interface IAuthResponse {
@@ -43,24 +43,18 @@ const meFetch = async (cookies: RequestCookies): Promise<IMeResponse> => {
         .catch(err => console.error(err));
 };
 export const middleware = async (
-    req: NextRequest,
-    event: NextFetchEvent
+    req: NextRequest
 ): Promise<NextResponse | unknown> => {
     const { cookies } = req;
     const { pathname } = req.nextUrl;
     const response = NextResponse.next();
-    let authRes;
-    event.waitUntil(() => {
-        authRes = authFetch(cookies);
-        if (authRes?.accessToken) {
-            response.cookies.set('access_token', authRes.accessToken);
-        }
-    });
-
+    const authRes = await authFetch(cookies);
+    if (authRes?.accessToken) {
+        response.cookies.set('access_token', authRes.accessToken);
+    }
     const meRes = await meFetch(cookies);
     if (!meRes?.id && pathname !== '/login' && !authRes?.ok) {
         const loginUrl = new URL('/login', req.url).toString();
-        console.log({ loginUrl });
         return NextResponse.redirect(loginUrl);
     }
     return response;
