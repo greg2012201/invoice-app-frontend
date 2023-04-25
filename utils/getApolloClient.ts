@@ -36,7 +36,7 @@ function extractAccessToken<T>(maybeHeaderWithAccessToken: T): TToken {
 }
 
 const uri: string | undefined = `${
-    process.env.REACT_APP_API_URI || 'http://localhost:4000/graphql'
+    process.env.API_URI || 'http://localhost:4000/graphql'
 }`;
 const requestLink = (externalAccessToken: TToken): ApolloLink =>
     /* eslint-disable-next-line */

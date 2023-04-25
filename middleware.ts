@@ -28,7 +28,7 @@ const authFetch = async (cookies: RequestCookies): Promise<IAuthResponse> => {
 };
 const meFetch = async (cookies: RequestCookies): Promise<IMeResponse> => {
     const accessToken = cookies.get('access_token')?.value;
-    return fetch(`${process.env.REACT_APP_API_URI}`, {
+    return fetch(`${process.env.API_URI}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
