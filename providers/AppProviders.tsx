@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from 'themes/mainTheme';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, NormalizedCacheObject } from '@apollo/client';
 
 import { getApolloClient } from '@/utils/getApolloClient';
 import { CacheProvider, EmotionCache } from '@emotion/react';
@@ -9,9 +9,10 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 interface Props {
     children: JSX.Element;
     emotionCache: EmotionCache;
+    apolloState: NormalizedCacheObject;
 }
-const client = getApolloClient({ isSSR: false });
-const AppProviders: FC<Props> = ({ children, emotionCache }) => {
+const AppProviders: FC<Props> = ({ children, emotionCache, apolloState }) => {
+    const client = getApolloClient(apolloState);
     return (
         <ApolloProvider client={client}>
             <CacheProvider value={emotionCache}>
