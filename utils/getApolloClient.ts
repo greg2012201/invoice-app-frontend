@@ -11,6 +11,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { onError } from '@apollo/client/link/error';
 import jwtDecode from 'jwt-decode';
 import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
+import { TToken, isString } from '@/types/shared';
 import { fetchAccessToken } from './fetchAccessToken';
 
 function headerToString<T>(header: T): string | null {
@@ -26,10 +27,8 @@ function headerToString<T>(header: T): string | null {
     return null;
 }
 
-function extractAccessToken(
-    maybeHeaderWithAccessToken: string | null
-): string | null {
-    if (!maybeHeaderWithAccessToken) {
+function extractAccessToken<T>(maybeHeaderWithAccessToken: T): TToken {
+    if (!isString(maybeHeaderWithAccessToken)) {
         return null;
     }
     const match = maybeHeaderWithAccessToken.match(/access_token=([^;]+)/);
@@ -39,7 +38,7 @@ function extractAccessToken(
 const uri: string | undefined = `${
     process.env.REACT_APP_API_URI || 'http://localhost:4000/graphql'
 }`;
-const requestLink = (externalAccessToken: string | undefined): ApolloLink =>
+const requestLink = (externalAccessToken: TToken): ApolloLink =>
     /* eslint-disable-next-line */
     {
         return new ApolloLink(
@@ -79,13 +78,14 @@ const requestLink = (externalAccessToken: string | undefined): ApolloLink =>
         );
     };
 const tokenRefreshLink = (
-    externalAccessToken: string | undefined
+    externalAccessToken: TToken,
+    refreshToken: TToken
 ): TokenRefreshLink<string> => {
     return new TokenRefreshLink({
         accessTokenField: 'accessToken',
         isTokenValidOrUndefined: () => {
             /* eslint-disable-next-line */
-            const token: CookieValueTypes =
+            const token: TToken | CookieValueTypes =
                 externalAccessToken || getCookie('access_token');
 
             if (!token) {
@@ -105,7 +105,7 @@ const tokenRefreshLink = (
             }
         },
         fetchAccessToken: () => {
-            return fetchAccessToken();
+            return fetchAccessToken(refreshToken);
         },
         handleFetch: accessToken => {
             setCookie('access_token', accessToken);
@@ -119,15 +119,15 @@ const tokenRefreshLink = (
 
 export const getApolloClient = (
     initialState: NormalizedCacheObject,
-    accessToken?: string,
-    refreshToken?: string
+    accessToken: TToken,
+    refreshToken: TToken
 ): ApolloClient<NormalizedCacheObject> =>
     /* eslint-disable-next-line */
     {
         return new ApolloClient({
             ssrMode: typeof window === 'undefined',
             link: ApolloLink.from([
-                tokenRefreshLink(accessToken),
+                tokenRefreshLink(accessToken, refreshToken),
                 onError(({ graphQLErrors, networkError }) => {
                     console.log(graphQLErrors);
                     console.log(networkError);
@@ -138,7 +138,8 @@ export const getApolloClient = (
                     typeof refreshToken === 'string'
                         ? {
                               uri,
-                              headers: { Cookie: refreshToken },
+                              headers: { Cookie: `jid=${refreshToken}` },
+                              credentials: 'include',
                           }
                         : {
                               uri,
@@ -172,7 +173,7 @@ export const withApolloClient =
             context.req.cookies?.access_token ||
             extractAccessToken(parsedHeader);
 
-        const refreshToken = context.req.cookies?.jid;
+        const refreshToken: TToken = context.req.cookies.jid;
         const apolloClient = getApolloClient({}, accessToken, refreshToken);
         const pageProps = await getServerSideProps(context, apolloClient);
         const apolloState = apolloClient.cache.extract();
