@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { Box, Typography, Button, Toolbar } from '@mui/material';
 import { InvoiceNumber, Form, ToolbarStyles } from './IssueInvoiceForm.styles';
-import Service from './sections/Service';
 import Contractors from './sections/Contractors/Contractors';
+import Service from './sections/Service';
 
 const IssueInvoiceForm: FC = () => {
     return (
