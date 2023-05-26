@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import InvoiceNumber from '@/components/IssueInvoiceForm/sections/InvouceNumber';
 import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
 import Contractors from '@/components/IssueInvoiceForm/sections/Contractors';
@@ -18,6 +19,7 @@ const IssueInvoice: FC = () => {
             </Box>
             <Divider />
             <IssueInvoiceForm
+                invoiceNumber={<InvoiceNumber />}
                 contractors={<Contractors />}
                 service={<Service />}
             />

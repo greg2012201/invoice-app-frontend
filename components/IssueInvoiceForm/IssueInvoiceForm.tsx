@@ -1,11 +1,15 @@
-import React, { FC, ReactElement } from 'react';
-import { useForm, FormProvider, useFormContext } from 'react-hook-form';
-import { Box, Typography, Button, Toolbar } from '@mui/material';
-import { InvoiceNumber, Form, ToolbarStyles } from './IssueInvoiceForm.styles';
+import React, { ReactElement } from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Box, Button, Toolbar } from '@mui/material';
+import { Form, ToolbarStyles } from './IssueInvoiceForm.styles';
 
-type Props = Record<'contractors' | 'service', ReactElement>;
+type Props = Record<'invoiceNumber' | 'contractors' | 'service', ReactElement>;
 
-function IssueInvoiceForm({ contractors, service }: Props): JSX.Element {
+function IssueInvoiceForm({
+    invoiceNumber,
+    contractors,
+    service,
+}: Props): JSX.Element {
     const methods = useForm();
     /* TODO: define types for data */
     const onSubmit = data => console.log(data);
@@ -18,9 +22,7 @@ function IssueInvoiceForm({ contractors, service }: Props): JSX.Element {
                 noValidate
                 autoComplete="off"
             >
-                <Typography sx={InvoiceNumber}>
-                    Invoice Number: FV/01/01/2022
-                </Typography>
+                {invoiceNumber}
                 {contractors}
                 {service}
                 <Toolbar disableGutters sx={ToolbarStyles}>
