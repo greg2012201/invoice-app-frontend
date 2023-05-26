@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { Box, Typography, Button, Toolbar } from '@mui/material';
 import { InvoiceNumber, Form, ToolbarStyles } from './IssueInvoiceForm.styles';
-import Contractors from './sections/Contractors/Contractors';
-import Service from './sections/Service';
 
-const IssueInvoiceForm: FC = () => {
+type Props = Record<'contractors' | 'service', ReactElement>;
+
+function IssueInvoiceForm({ contractors, service }: Props): JSX.Element {
     const methods = useForm();
     /* TODO: define types for data */
     const onSubmit = data => console.log(data);
@@ -21,8 +21,8 @@ const IssueInvoiceForm: FC = () => {
                 <Typography sx={InvoiceNumber}>
                     Invoice Number: FV/01/01/2022
                 </Typography>
-                <Contractors />
-                <Service />
+                {contractors}
+                {service}
                 <Toolbar disableGutters sx={ToolbarStyles}>
                     <Button type="submit" variant="contained" size="large">
                         Submit
@@ -31,6 +31,6 @@ const IssueInvoiceForm: FC = () => {
             </Box>
         </FormProvider>
     );
-};
+}
 
 export default IssueInvoiceForm;

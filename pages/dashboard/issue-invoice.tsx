@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
+import Contractors from '@/components/IssueInvoiceForm/sections/Contractors';
+import Service from '@/components/IssueInvoiceForm/sections/Service';
 
 const IssueInvoiceForm = dynamic(() => import('components/IssueInvoiceForm'), {
     ssr: false,
@@ -15,7 +17,10 @@ const IssueInvoice: FC = () => {
                 </Typography>
             </Box>
             <Divider />
-            <IssueInvoiceForm />
+            <IssueInvoiceForm
+                contractors={<Contractors />}
+                service={<Service />}
+            />
         </div>
     );
 };
