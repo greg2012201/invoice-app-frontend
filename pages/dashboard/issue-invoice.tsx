@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import InvoiceNumber from '@/components/IssueInvoiceForm/sections/InvouceNumber';
 import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
@@ -8,7 +8,7 @@ import Service from '@/components/IssueInvoiceForm/sections/Service';
 const IssueInvoiceForm = dynamic(() => import('components/IssueInvoiceForm'), {
     ssr: false,
 });
-const IssueInvoice: FC = () => {
+function IssueInvoice(): JSX.Element {
     return (
         <div>
             <Box>
@@ -25,6 +25,6 @@ const IssueInvoice: FC = () => {
             />
         </div>
     );
-};
+}
 
 export default IssueInvoice;
