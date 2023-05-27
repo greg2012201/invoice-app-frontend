@@ -150,20 +150,15 @@ export const getApolloClient = (
             cache: new InMemoryCache().restore(initialState),
         });
     };
-interface GetServerSidePropsWithApollo<T, PageProps> {
+type GetServerSidePropsWithApollo<PageProps> = {
     (
-        context: T,
+        context: GetServerSidePropsContext,
         apolloClient: ApolloClient<NormalizedCacheObject>
     ): Promise<PageProps>;
-}
+};
 /* eslint-disable-next-line */
 export const withApolloClient =
-    <PageProps>(
-        getServerSideProps: GetServerSidePropsWithApollo<
-            GetServerSidePropsContext,
-            PageProps
-        >
-    ) =>
+    <PageProps>(getServerSideProps: GetServerSidePropsWithApollo<PageProps>) =>
     /* eslint-disable-next-line */
     async (context: GetServerSidePropsContext) => {
         /* eslint-disable-next-line */
