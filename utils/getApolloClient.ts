@@ -150,16 +150,19 @@ export const getApolloClient = (
             cache: new InMemoryCache().restore(initialState),
         });
     };
-interface GetServerSidePropsWithApollo<T> {
+interface GetServerSidePropsWithApollo<T, PageProps> {
     (
         context: T,
         apolloClient: ApolloClient<NormalizedCacheObject>
-    ): GetServerSideProps;
+    ): Promise<PageProps>;
 }
 /* eslint-disable-next-line */
 export const withApolloClient =
-    (
-        getServerSideProps: GetServerSidePropsWithApollo<GetServerSidePropsContext>
+    <PageProps>(
+        getServerSideProps: GetServerSidePropsWithApollo<
+            GetServerSidePropsContext,
+            PageProps
+        >
     ) =>
     /* eslint-disable-next-line */
     async (context: GetServerSidePropsContext) => {
