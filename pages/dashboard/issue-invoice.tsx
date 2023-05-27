@@ -4,11 +4,28 @@ import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
 import Contractors from '@/components/IssueInvoiceForm/sections/Contractors';
 import Service from '@/components/IssueInvoiceForm/sections/Service';
+import { withApolloClient } from '@/utils/getApolloClient';
+import { GET_INVOICE_NUMBER } from '@/queries/getInvoiceNumber';
+import type { Invoice } from '@/types/invoice';
 
 const IssueInvoiceForm = dynamic(() => import('components/IssueInvoiceForm'), {
     ssr: false,
 });
-function IssueInvoice(): JSX.Element {
+
+type PageProps = { invoiceNumber: Invoice['invoiceNumber'] };
+
+export const getServerSideProps = withApolloClient<PageProps>(
+    async (_, apolloClient) => {
+        const res = await apolloClient.query({
+            query: GET_INVOICE_NUMBER,
+        });
+        return {
+            invoiceNumber: res.data.getInvoiceNumber ?? null,
+        };
+    }
+);
+
+function IssueInvoice({ invoiceNumber }: PageProps): JSX.Element {
     return (
         <div>
             <Box>
@@ -19,7 +36,7 @@ function IssueInvoice(): JSX.Element {
             </Box>
             <Divider />
             <IssueInvoiceForm
-                invoiceNumber={<InvoiceNumber />}
+                invoiceNumber={<InvoiceNumber invoiceNumber={invoiceNumber} />}
                 contractors={<Contractors />}
                 service={<Service />}
             />
