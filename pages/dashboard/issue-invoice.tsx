@@ -1,16 +1,19 @@
 import React from 'react';
-import InvoiceNumber from '@/components/IssueInvoiceForm/sections/InvouceNumber';
+import InvoiceNumber from '@/invoice/components/InvoiceNumber';
 import dynamic from 'next/dynamic';
 import { Typography, Divider, Box } from '@mui/material';
-import Contractors from '@/components/IssueInvoiceForm/sections/Contractors';
-import Service from '@/components/IssueInvoiceForm/sections/Service';
+import Contractors from '@/contractor/components/Contractors';
+import Service from '@/invoice/components/Service';
 import { withApolloClient } from '@/utils/getApolloClient';
-import { GET_INVOICE_NUMBER } from '@/queries/getInvoiceNumber';
-import type { Invoice } from '@/types/invoice';
+import { GET_INVOICE_NUMBER } from '@/invoice/queries/getInvoiceNumber';
+import type { Invoice } from '@/invoice/types/invoice';
 
-const IssueInvoiceForm = dynamic(() => import('components/IssueInvoiceForm'), {
-    ssr: false,
-});
+const IssueInvoiceForm = dynamic(
+    () => import('@/shared/components/IssueInvoiceForm'),
+    {
+        ssr: false,
+    }
+);
 
 type PageProps = { invoiceNumber: Invoice['invoiceNumber'] };
 

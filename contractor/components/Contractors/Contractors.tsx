@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
-import { contractors } from 'mocks/contractors';
-import { Contractor } from 'types/contractors';
+import { contractors } from '@/contractor/mocks/contractors';
+import { Contractor } from '@/contractor/types/contractors';
 import { Wrapper } from './Contractors.styles';
 import ContractorCard from './ContractorCard';
 

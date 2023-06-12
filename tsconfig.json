@@ -27,7 +27,6 @@
             "@/shared/*": ["shared/*"],
             "@/queries/*": ["queries/*"],
             "@/utils/*": ["utils/*"],
-            "@/types/*": ["types/*"],
             "@/providers/*": ["providers/*"],
             "@/hooks/*": ["hooks/*"],
             "@/constants/*": ["constants/*"]

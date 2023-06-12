@@ -4,7 +4,7 @@ import {
 } from 'next/dist/server/web/spec-extension/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 import { GET_ME_STRING } from 'queries/getMe';
-import { isString } from './types/shared';
+import { isString } from './shared/types/shared';
 
 interface IAuthResponse {
     ok: boolean;

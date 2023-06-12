@@ -1,4 +1,4 @@
-import { Contractors } from 'types/contractors';
+import { Contractors } from '@/contractor/types/contractors';
 
 export const contractors: Contractors = {
     seller: {

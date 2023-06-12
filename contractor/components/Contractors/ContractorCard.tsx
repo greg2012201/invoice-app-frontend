@@ -8,7 +8,7 @@ import {
     List,
     ListItem,
 } from '@mui/material';
-import { Contractor } from 'types/contractors';
+import { Contractor } from '@/contractor/types/contractors';
 import {
     ContractorTypeParagraph,
     ListItemStyles,

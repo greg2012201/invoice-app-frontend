@@ -11,7 +11,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { onError } from '@apollo/client/link/error';
 import jwtDecode from 'jwt-decode';
 import { CookieValueTypes, getCookie, setCookie } from 'cookies-next';
-import { TToken, isString } from '@/types/shared';
+import { TToken, isString } from '@/shared/types/shared';
 import { fetchAccessToken } from './fetchAccessToken';
 
 function headerToString<T>(header: T): string | null {

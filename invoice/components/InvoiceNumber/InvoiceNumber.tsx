@@ -1,4 +1,4 @@
-import type { Invoice } from '@/types/invoice';
+import type { Invoice } from '@/invoice/types/invoice';
 import { Typography } from '@mui/material';
 import React from 'react';
 import { Wrapper } from './InvoiceNumber.styles';

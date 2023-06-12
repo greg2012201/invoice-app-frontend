@@ -1,4 +1,4 @@
-import type { TToken } from '@/types/shared';
+import type { TToken } from '@/shared/types/shared';
 
 const isSSR = typeof window === 'undefined';
 
