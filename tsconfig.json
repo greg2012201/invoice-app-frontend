@@ -28,7 +28,6 @@
             "@/queries/*": ["queries/*"],
             "@/utils/*": ["utils/*"],
             "@/providers/*": ["providers/*"],
-            "@/hooks/*": ["hooks/*"],
             "@/constants/*": ["constants/*"]
         },
         "incremental": true,
