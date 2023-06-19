@@ -8,7 +8,7 @@ import type { ReadOnlyMap } from '@/shared/types/shared';
 
 type Option = ReadOnlyMap<{
     id: string;
-    value: string;
+    value: string | number;
     label: string;
 }>;
 
@@ -16,34 +16,45 @@ type Props = {
     id: string;
     label: string;
     options: Option[];
+    error: boolean;
+    helperText?: string;
 };
 
-function SelectField({ id, label, options }: ReadOnlyMap<Props>): JSX.Element {
+function SelectField({
+    id,
+    label,
+    options,
+    error = false,
+    helperText,
+    ...rest
+}: ReadOnlyMap<Props>): JSX.Element {
     const [selectedValue, setSelectedValue] = React.useState('');
 
     const handleChange = (event: SelectChangeEvent): void => {
         setSelectedValue(event.target.value);
     };
     return (
-        <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id={id}>Age</InputLabel>
+        <FormControl error={error} sx={{ m: 1, minWidth: 120 }} {...rest}>
+            <InputLabel id={id} error={error}>
+                {label}
+            </InputLabel>
             <Select
                 labelId={`${id}-label`}
                 id={id}
                 value={selectedValue}
                 label={label}
                 onChange={handleChange}
+                error={error}
             >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
                 {options.map(option => {
                     return (
                         <MenuItem value={option.value}>{option.label}</MenuItem>
                     );
                 })}
             </Select>
-            <FormHelperText>With label + helper text</FormHelperText>
+            {error && helperText && (
+                <FormHelperText error={error}>{helperText}</FormHelperText>
+            )}
         </FormControl>
     );
 }
