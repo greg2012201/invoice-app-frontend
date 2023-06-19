@@ -4,9 +4,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import type { ReadOnlyMap } from '@/shared/types/shared';
+import { isString, type ReadOnlyMap } from '@/shared/types/shared';
 
-type Option = {
+export type Option = {
     id: string;
     value: string | number;
     label: string;
@@ -18,14 +18,25 @@ type Props = {
     options: Option[];
     error: boolean;
     helperText?: string;
+    defaultValue?: Option['value'];
 };
 
 const SelectField = forwardRef<HTMLDivElement, ReadOnlyMap<Props>>(
     (
-        { id, label, options, error = false, helperText, ...rest }: Props,
+        {
+            id,
+            label,
+            options,
+            error = false,
+            helperText,
+            defaultValue,
+            ...rest
+        }: Props,
         ref
     ): JSX.Element => {
-        const [selectedValue, setSelectedValue] = React.useState('');
+        const [selectedValue, setSelectedValue] = React.useState(
+            defaultValue ?? ''
+        );
 
         const handleChange = (event: SelectChangeEvent): void => {
             setSelectedValue(event.target.value);
@@ -44,7 +55,11 @@ const SelectField = forwardRef<HTMLDivElement, ReadOnlyMap<Props>>(
                 <Select
                     labelId={`${id}-label`}
                     id={id}
-                    value={selectedValue}
+                    value={
+                        isString(selectedValue)
+                            ? selectedValue
+                            : selectedValue.toString()
+                    }
                     label={label}
                     onChange={handleChange}
                     error={error}

@@ -3,9 +3,10 @@ import { Box, TextField, Grid, BaseTextFieldProps } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 import { isString } from '@/shared/types/shared';
 import SelectField from '@/shared/components/SelectField';
+import type { Option } from '@/shared/components/SelectField/SelectField';
 import { TextFieldStyle, Wrapper } from './Service.styles';
 
-const VAT_RATE = [
+const VAT_RATE: Option[] = [
     { id: '1', label: '23%', value: 23 },
     { id: '2', label: '8%', value: 8 },
     { id: '3', label: '5%', value: 5 },
@@ -112,7 +113,7 @@ const Service: FC = () => {
                                 <SelectField
                                     id="vat-rate"
                                     label="VAT rate"
-                                    defaultValue={VAT_RATE[0].label}
+                                    defaultValue={VAT_RATE[0].value}
                                     options={VAT_RATE}
                                     error={!!errors?.VATRate}
                                     value={value}
