@@ -19,7 +19,7 @@ const SharedTextInputProps: BaseTextFieldProps = {
     fullWidth: true,
 };
 const REQUIRED_INFO = 'This field is required';
-const Service: FC = () => {
+function Service(): JSX.Element {
     const {
         register,
         control,
@@ -187,6 +187,6 @@ const Service: FC = () => {
             </Grid>
         </Box>
     );
-};
+}
 
 export default Service;
