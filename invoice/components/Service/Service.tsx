@@ -8,9 +8,12 @@ import { TextFieldStyle, Wrapper } from './Service.styles';
 
 const VAT_RATE: Option[] = [
     { id: '1', label: '23%', value: 23 },
-    { id: '2', label: '8%', value: 8 },
-    { id: '3', label: '5%', value: 5 },
-    { id: '4', label: '0%', value: 0 },
+    { id: '2', label: '22%', value: 22 },
+    { id: '3', label: '8%', value: 8 },
+    { id: '4', label: '7%', value: 7 },
+    { id: '5', label: '5%', value: 5 },
+    { id: '6', label: '3%', value: 3 },
+    { id: '7', label: '0%', value: 0 },
 ];
 
 const SharedTextInputProps: BaseTextFieldProps = {
