@@ -1,8 +1,16 @@
 import React, { FC } from 'react';
 import { Box, TextField, Grid, BaseTextFieldProps } from '@mui/material';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { isString } from '@/shared/types/shared';
+import SelectField from '@/shared/components/SelectField';
 import { TextFieldStyle, Wrapper } from './Service.styles';
+
+const VAT_RATE = [
+    { id: '1', label: '23%', value: 23 },
+    { id: '2', label: '8%', value: 8 },
+    { id: '3', label: '5%', value: 5 },
+    { id: '4', label: '0%', value: 0 },
+];
 
 const SharedTextInputProps: BaseTextFieldProps = {
     size: 'small',
@@ -13,6 +21,7 @@ const REQUIRED_INFO = 'This field is required';
 const Service: FC = () => {
     const {
         register,
+        control,
         formState: { errors },
     } = useFormContext();
     return (
@@ -94,22 +103,34 @@ const Service: FC = () => {
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.2}>
-                    <TextField
-                        style={TextFieldStyle}
-                        type="number"
-                        id="vat-rate"
-                        label="VAT rate"
-                        error={!!errors?.VATRate}
-                        helperText={
-                            isString(errors?.VATRate?.message)
-                                ? errors?.VATRate?.message
-                                : ''
-                        }
-                        {...register('VATRate', {
-                            required: REQUIRED_INFO,
-                            valueAsNumber: true,
-                        })}
-                        {...SharedTextInputProps}
+                    <Controller
+                        control={control}
+                        name="VATRate"
+                        rules={{ required: REQUIRED_INFO }}
+                        render={({ field: { value, ref, onChange } }) => {
+                            return (
+                                <SelectField
+                                    id="vat-rate"
+                                    label="VAT rate"
+                                    defaultValue={VAT_RATE[0].label}
+                                    options={VAT_RATE}
+                                    error={!!errors?.VATRate}
+                                    value={value}
+                                    onChange={onChange}
+                                    helperText={
+                                        isString(errors?.VATRate?.message)
+                                            ? errors?.VATRate?.message
+                                            : null
+                                    }
+                                    style={{
+                                        ...TextFieldStyle,
+                                        paddingRight: '16px',
+                                    }}
+                                    {...SharedTextInputProps}
+                                    ref={ref}
+                                />
+                            );
+                        }}
                     />
                 </Grid>
                 <Grid item xs={8} md={5} lg={1.5}>
