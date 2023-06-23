@@ -3,7 +3,7 @@ export type Invoice = {
     quantity: number;
     priceNet: number;
     valueNet: number;
-    VATRate: string;
+    VATRate: number;
     sumVAT: number;
     grossValue: number;
     comments?: string;
