@@ -1,7 +1,4 @@
-type Props = Record<
-    'quantity' | 'priceNet' | 'vatRate' | 'valueNet' | 'grossValue' | 'sumVat',
-    number
->;
+import type { InvoiceValues } from './types/invoice';
 
 function getPercentage(value: number, percent: number): number {
     return value * (percent / 100);
@@ -13,7 +10,7 @@ function reverseGetPercentage(value: number, percent: number): number {
 }
 export function recalculatePriceNet(
     values: Pick<
-        Props & { vat: number },
+        InvoiceValues & { vat: number },
         'priceNet' | 'valueNet' | 'grossValue' | 'sumVat' | 'quantity'
     >
 ): number {
@@ -27,7 +24,7 @@ export function recalculatePriceNet(
 }
 export function recalculateGrossValue(
     values: Pick<
-        Props & { vat: number },
+        InvoiceValues & { vat: number },
         'priceNet' | 'grossValue' | 'vat' | 'quantity' | 'valueNet'
     >
 ): number {
@@ -50,7 +47,7 @@ export function calculateVat({
     valueNet,
     sumVat,
 }: Pick<
-    Props,
+    InvoiceValues,
     'priceNet' | 'vatRate' | 'valueNet' | 'grossValue' | 'sumVat'
 >): number {
     if (sumVat > 0) {
@@ -75,7 +72,7 @@ export function calculatePrice({
     valueNet,
     grossValue,
     sumVat,
-}: Props): Props {
+}: InvoiceValues): InvoiceValues {
     const recalculatedVat = calculateVat({
         priceNet,
         vatRate,

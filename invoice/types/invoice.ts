@@ -11,3 +11,8 @@ export type Invoice = {
     shortInvoiceNumber: number;
     issuedAt?: Date;
 };
+
+export type InvoiceValues = Record<
+    'quantity' | 'priceNet' | 'vatRate' | 'valueNet' | 'grossValue' | 'sumVat',
+    number
+>;
