@@ -5,12 +5,26 @@ import { Form, ToolbarStyles } from './IssueInvoiceForm.styles';
 
 type Props = Record<'invoiceNumber' | 'contractors' | 'service', ReactElement>;
 
+const DEFAULT_VALUES = {
+    serviceName: '',
+    quantity: 1,
+    priceNet: 0,
+    valueNet: 0,
+    VATRate: 0,
+    sumVAT: 0,
+    grossValue: 0,
+    comments: '',
+    invoiceNumber: '',
+    shortInvoiceNumber: 0,
+    issuedAt: new Date(),
+} as const;
+
 function IssueInvoiceForm({
     invoiceNumber,
     contractors,
     service,
 }: Props): JSX.Element {
-    const methods = useForm();
+    const methods = useForm({ defaultValues: DEFAULT_VALUES });
     /* TODO: define types for data */
     const onSubmit = data => console.log(data);
     return (
