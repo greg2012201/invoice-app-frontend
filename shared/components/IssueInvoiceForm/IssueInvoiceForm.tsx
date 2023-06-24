@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Box, Button, Toolbar } from '@mui/material';
+import { Invoice } from '@/invoice/types/invoice';
 import { Form, ToolbarStyles } from './IssueInvoiceForm.styles';
 
 type Props = Record<'invoiceNumber' | 'contractors' | 'service', ReactElement>;
@@ -26,7 +27,7 @@ function IssueInvoiceForm({
 }: Props): JSX.Element {
     const methods = useForm({ defaultValues: DEFAULT_VALUES });
     /* TODO: define types for data */
-    const onSubmit = data => console.log(data);
+    const onSubmit = (data: Invoice): void => console.log(data);
     return (
         <FormProvider {...methods}>
             <Box
