@@ -5,6 +5,7 @@ import { isString } from '@/shared/types/shared';
 import SelectField from '@/shared/components/SelectField';
 import type { Option } from '@/shared/components/SelectField/SelectField';
 import { TextFieldStyle, Wrapper } from './Service.styles';
+import valuesHandler from './valuesHandler';
 
 const VAT_RATE: Option[] = [
     { id: '1', label: '23%', value: 23 },
@@ -27,7 +28,19 @@ function Service(): JSX.Element {
         register,
         control,
         formState: { errors },
+        getValues,
+        setValue,
     } = useFormContext();
+    const handleOnBlur = (value: string, path: string): void => {
+        valuesHandler({
+            set: setValue,
+            get: getValues,
+            currentValue: {
+                path,
+                value: parseInt(value, 10),
+            },
+        });
+    };
     return (
         <Box component="form" sx={Wrapper}>
             <Grid container spacing={2}>
@@ -63,6 +76,9 @@ function Service(): JSX.Element {
                         {...register('quantity', {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
+                            onBlur: e => {
+                                handleOnBlur(e.target.value, 'quantity');
+                            },
                         })}
                         {...SharedTextInputProps}
                     />
@@ -82,6 +98,9 @@ function Service(): JSX.Element {
                         {...register('priceNet', {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
+                            onBlur: e => {
+                                handleOnBlur(e.target.value, 'priceNet');
+                            },
                         })}
                         {...SharedTextInputProps}
                     />
@@ -101,6 +120,9 @@ function Service(): JSX.Element {
                         {...register('valueNet', {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
+                            onBlur: e => {
+                                handleOnBlur(e.target.value, 'valueNet');
+                            },
                         })}
                         variant="outlined"
                         {...SharedTextInputProps}
@@ -111,27 +133,33 @@ function Service(): JSX.Element {
                         control={control}
                         name="VATRate"
                         rules={{ required: REQUIRED_INFO }}
-                        render={({ field: { value, ref, onChange } }) => {
+                        render={({ field: { value, ref } }) => {
                             return (
                                 <SelectField
                                     id="vat-rate"
-                                    label="VAT rate"
-                                    defaultValue={VAT_RATE[0].value}
                                     options={VAT_RATE}
                                     error={!!errors?.VATRate}
                                     value={value}
-                                    onChange={onChange}
-                                    helperText={
-                                        isString(errors?.VATRate?.message)
-                                            ? errors?.VATRate?.message
-                                            : null
-                                    }
+                                    onBlur={e => {
+                                        handleOnBlur(e.target.value, 'VATRate');
+                                        setValue(
+                                            'VATRate',
+                                            parseInt(e.target.value, 10)
+                                        );
+                                    }}
                                     style={{
                                         ...TextFieldStyle,
                                         paddingRight: '16px',
                                     }}
                                     {...SharedTextInputProps}
                                     ref={ref}
+                                    helperText={
+                                        isString(errors?.VATRate?.message)
+                                            ? errors?.VATRate?.message
+                                            : undefined
+                                    }
+                                    label="VAT rate"
+                                    defaultValue={VAT_RATE[0].value}
                                 />
                             );
                         }}
@@ -152,6 +180,9 @@ function Service(): JSX.Element {
                         {...register('sumVAT', {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
+                            onBlur: e => {
+                                handleOnBlur(e.target.value, 'sumVat');
+                            },
                         })}
                         {...SharedTextInputProps}
                     />
@@ -171,6 +202,9 @@ function Service(): JSX.Element {
                         {...register('grossValue', {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
+                            onBlur: e => {
+                                handleOnBlur(e.target.value, 'grossValue');
+                            },
                         })}
                         {...SharedTextInputProps}
                     />
