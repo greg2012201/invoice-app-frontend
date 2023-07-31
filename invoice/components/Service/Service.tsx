@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, TextField, Grid, BaseTextFieldProps } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
+import { InvoiceValues } from '@/invoice/types/invoice';
 import { isString } from '@/shared/types/shared';
 import SelectField from '@/shared/components/SelectField';
 import type { Option } from '@/shared/components/SelectField/SelectField';
@@ -31,7 +32,7 @@ function Service(): JSX.Element {
         getValues,
         setValue,
     } = useFormContext();
-    const handleOnBlur = (value: string, path: string): void => {
+    const handleOnBlur = (value: string, path: keyof InvoiceValues): void => {
         valuesHandler({
             set: setValue,
             get: getValues,
@@ -181,7 +182,7 @@ function Service(): JSX.Element {
                             required: REQUIRED_INFO,
                             valueAsNumber: true,
                             onBlur: e => {
-                                handleOnBlur(e.target.value, 'sumVat');
+                                handleOnBlur(e.target.value, 'sumVAT');
                             },
                         })}
                         {...SharedTextInputProps}
