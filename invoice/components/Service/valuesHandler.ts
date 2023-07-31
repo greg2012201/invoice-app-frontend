@@ -11,7 +11,24 @@ type ValuesHandler = {
     currentValue: CurrentValue;
 };
 
-const FIELDS_CONFIG = ['quantity', 'VATRate'] as const;
+const MODIFIERS = ['quantity', 'VATRate'];
+const FIELDS = ['priceNet', 'valueNet', 'sumVAT', 'grossValue'];
+
+function findFirstNoneZeroField(
+    get: ValuesHandler['get']
+): Partial<CurrentValue> {
+    const field: Partial<CurrentValue> = {};
+
+    FIELDS.forEach(path => {
+        const pathValue = get(path);
+        if (pathValue > 0) {
+            field.path = path;
+            field.value = pathValue;
+        }
+    });
+
+    return field;
+}
 
 function buildPropsToCalculate(
     get: ValuesHandler['get'],
@@ -19,13 +36,19 @@ function buildPropsToCalculate(
 ): Values {
     const props = { [currentValue.path]: currentValue.value };
 
-    FIELDS_CONFIG.forEach(path => {
+    MODIFIERS.forEach(path => {
         const prop = props[path];
         if (prop) {
             return;
         }
         props[path] = get(path);
     });
+    if (MODIFIERS.includes(currentValue.path)) {
+        const foundNonZeroField = findFirstNoneZeroField(get);
+        if (foundNonZeroField?.path && foundNonZeroField?.value) {
+            props[foundNonZeroField.path] = foundNonZeroField.value;
+        }
+    }
     return props as Values;
 }
 
