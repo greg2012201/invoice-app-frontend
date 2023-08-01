@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, FocusEvent } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -19,6 +19,9 @@ type Props = {
     error: boolean;
     helperText?: string;
     defaultValue?: Option['value'];
+    onBlur: (
+        event: FocusEvent<HTMLTextAreaElement | HTMLInputElement, Element>
+    ) => void;
 };
 
 const SelectField = forwardRef<HTMLDivElement, ReadOnlyMap<Props>>(
@@ -30,6 +33,7 @@ const SelectField = forwardRef<HTMLDivElement, ReadOnlyMap<Props>>(
             error = false,
             helperText,
             defaultValue,
+            onBlur,
             ...rest
         }: Props,
         ref
@@ -62,6 +66,7 @@ const SelectField = forwardRef<HTMLDivElement, ReadOnlyMap<Props>>(
                     }
                     label={label}
                     onChange={handleChange}
+                    onBlur={onBlur}
                     error={error}
                 >
                     {options.map(option => (
