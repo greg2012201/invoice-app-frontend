@@ -11,7 +11,7 @@ const DEFAULT_VALUES = {
     quantity: 1,
     priceNet: 0,
     valueNet: 0,
-    VATRate: 0,
+    VATRate: 23,
     sumVAT: 0,
     grossValue: 0,
     comments: '',
