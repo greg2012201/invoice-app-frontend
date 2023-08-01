@@ -12,7 +12,7 @@ export type Invoice = {
     issuedAt?: Date;
 };
 
-export type InvoiceValues = Record<
-    'quantity' | 'priceNet' | 'vatRate' | 'valueNet' | 'grossValue' | 'sumVat',
-    number
+export type InvoiceValues = Pick<
+    Invoice,
+    'quantity' | 'priceNet' | 'VATRate' | 'valueNet' | 'grossValue' | 'sumVAT'
 >;
