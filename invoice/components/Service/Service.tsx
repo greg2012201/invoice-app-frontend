@@ -142,11 +142,11 @@ function Service(): JSX.Element {
                                     error={!!errors?.VATRate}
                                     value={value}
                                     onBlur={e => {
-                                        handleOnBlur(e.target.value, 'VATRate');
                                         setValue(
                                             'VATRate',
                                             parseInt(e.target.value, 10)
                                         );
+                                        handleOnBlur(e.target.value, 'VATRate');
                                     }}
                                     style={{
                                         ...TextFieldStyle,
