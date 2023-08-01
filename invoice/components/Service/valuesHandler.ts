@@ -1,4 +1,5 @@
 import { Values, calculatePrice } from '@/invoice/calculatePrice';
+import isEmpty from '@/utils/isEmpty';
 
 type CurrentValue = {
     path: string;
@@ -12,7 +13,7 @@ type ValuesHandler = {
 };
 
 const MODIFIERS = ['quantity', 'VATRate'];
-const FIELDS = ['priceNet', 'valueNet', 'sumVAT', 'grossValue'];
+const FIELDS = ['priceNet', 'valueNet', 'grossValue'];
 
 function findFirstNoneZeroField(
     get: ValuesHandler['get']
@@ -21,7 +22,7 @@ function findFirstNoneZeroField(
 
     FIELDS.forEach(path => {
         const pathValue = get(path);
-        if (pathValue > 0) {
+        if (pathValue > 0 && isEmpty<typeof field>(field)) {
             field.path = path;
             field.value = pathValue;
         }
